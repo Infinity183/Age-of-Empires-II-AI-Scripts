@@ -6,6 +6,7 @@
     (set-strategic-number sn-maximum-town-size 35)
     (set-strategic-number sn-camp-max-distance 35)
     (set-strategic-number sn-mill-max-distance 35)
+    (set-strategic-number sn-maximum-stone-drop-distance 0)
     (set-strategic-number sn-wall-targeting-mode 1)
     (set-strategic-number sn-percent-civilian-builders 15)
     (set-strategic-number sn-percent-civilian-gatherers 85)
@@ -270,7 +271,7 @@
 
 (defrule
     (resource-found wood)
-    (dropsite-min-distance wood > 5)
+    (dropsite-min-distance wood > 32)
     (building-type-count-total lumber-camp < 3)
     (can-build lumber-camp)
 =>
@@ -281,7 +282,7 @@
 
 (defrule
     (resource-found gold)
-    (dropsite-min-distance gold > 6)
+    (dropsite-min-distance gold > 32)
     (building-type-count-total mining-camp < 2)
     (can-build mining-camp)
 =>
