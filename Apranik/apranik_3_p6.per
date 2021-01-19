@@ -1,0 +1,332 @@
+; White Huns
+
+(defrule	
+	(true)
+=>
+	(set-strategic-number sn-defense-distance 20)
+	(set-strategic-number sn-sentry-distance 20)
+	(set-strategic-number sn-percent-enemy-sighted-response 100)
+	(set-strategic-number sn-enemy-sighted-response-distance 15)
+	(set-strategic-number sn-sentry-distance 5)
+    (set-strategic-number sn-target-player-number 5)
+	(disable-self)
+)
+
+; Army Size
+
+(defrule
+	(difficulty == easy)
+=>
+	(set-strategic-number sn-percent-attack-soldiers 30)
+    (disable-self)
+)
+
+(defrule
+	(difficulty == moderate)
+=>
+	(set-strategic-number sn-percent-attack-soldiers 40)
+    (disable-self)
+)
+
+(defrule
+	(difficulty == hard)
+=>
+	(set-strategic-number sn-percent-attack-soldiers 50)
+    (disable-self)
+)
+
+; After Indians Lose
+
+(defrule
+    (event-detected trigger 9)
+	(difficulty == easy)
+=>
+	(set-strategic-number sn-percent-attack-soldiers 35)
+    (disable-self)
+)
+
+(defrule
+    (event-detected trigger 9)
+	(difficulty == moderate)
+=>
+	(set-strategic-number sn-percent-attack-soldiers 50)
+    (disable-self)
+)
+
+(defrule
+    (event-detected trigger 9)
+	(difficulty == hard)
+=>
+	(set-strategic-number sn-percent-attack-soldiers 60)
+    (disable-self)
+)
+
+; Dodge
+
+(defrule
+	(difficulty == easy)
+=>
+	(set-difficulty-parameter ability-to-maintain-distance 80)
+	(set-difficulty-parameter ability-to-dodge-missiles 80)
+	(disable-self)
+)
+(defrule
+	(difficulty == moderate)
+=>
+	(set-difficulty-parameter ability-to-maintain-distance 50) 
+	(set-difficulty-parameter ability-to-dodge-missiles 50)
+	(disable-self)
+)
+(defrule
+	(difficulty == hard)
+=>
+	(set-difficulty-parameter ability-to-maintain-distance 15) 
+	(set-difficulty-parameter ability-to-dodge-missiles 15)
+	(disable-self)
+)
+
+; Attack Intervals
+
+; Initial Attack
+
+(defrule
+    (difficulty == easy)
+    (game-time > 900)
+=>
+	(set-strategic-number sn-group-form-distance 15)
+	(set-strategic-number sn-number-attack-groups 1)
+    (attack-now)
+    (enable-timer 1 900)
+    (disable-self)
+)
+
+(defrule
+    (difficulty == moderate)
+    (game-time > 600)
+=>
+	(set-strategic-number sn-group-form-distance 15)
+	(set-strategic-number sn-number-attack-groups 1)
+    (attack-now)
+    (enable-timer 1 600)
+    (disable-self)
+)
+
+(defrule
+    (difficulty == hard)
+    (game-time > 300)
+=>
+	(set-strategic-number sn-group-form-distance 15)
+	(set-strategic-number sn-number-attack-groups 1)
+    (attack-now)
+    (enable-timer 1 300)
+    (disable-self)
+)
+
+; Subsequent Attacks
+
+(defrule
+    (not(event-detected trigger 9))
+    (difficulty == easy)
+    (timer-triggered 1)
+=>
+	(set-strategic-number sn-group-form-distance 15)
+	(set-strategic-number sn-number-attack-groups 1)
+    (attack-now)
+    (enable-timer 1 900)
+    (disable-self)
+)
+
+(defrule
+    (not(event-detected trigger 9))
+    (difficulty == moderate)
+    (timer-triggered 1)
+=>
+	(set-strategic-number sn-group-form-distance 15)
+	(set-strategic-number sn-number-attack-groups 1)
+    (attack-now)
+    (enable-timer 1 600)
+    (disable-self)
+)
+
+(defrule
+    (not(event-detected trigger 9))
+    (difficulty == hard)
+    (timer-triggered 1)
+=>
+	(set-strategic-number sn-group-form-distance 15)
+	(set-strategic-number sn-number-attack-groups 1)
+    (attack-now)
+    (enable-timer 1 300)
+    (disable-self)
+)
+
+; After Indians Lose
+
+(defrule
+    (event-detected trigger 9)
+    (difficulty == easy)
+    (timer-triggered 1)
+=>
+	(set-strategic-number sn-group-form-distance 15)
+	(set-strategic-number sn-number-attack-groups 1)
+    (attack-now)
+    (enable-timer 1 1200)
+    (disable-self)
+)
+
+(defrule
+    (event-detected trigger 9)
+    (difficulty == moderate)
+    (timer-triggered 1)
+=>
+	(set-strategic-number sn-group-form-distance 15)
+	(set-strategic-number sn-number-attack-groups 1)
+    (attack-now)
+    (enable-timer 1 750)
+    (disable-self)
+)
+
+(defrule
+    (event-detected trigger 9)
+    (difficulty == hard)
+    (timer-triggered 1)
+=>
+	(set-strategic-number sn-group-form-distance 15)
+	(set-strategic-number sn-number-attack-groups 1)
+    (attack-now)
+    (enable-timer 1 450)
+    (disable-self)
+)
+
+; Army Composition
+
+; Hussars
+(defrule
+    (difficulty == easy)
+    (unit-type-count-total scout-cavalry-line < 6)
+=>
+    (train scout-cavalry-line)
+)
+(defrule
+    (difficulty == moderate)
+    (unit-type-count-total scout-cavalry-line < 10)
+=>
+    (train scout-cavalry-line)
+)
+(defrule
+    (difficulty == hard)
+    (unit-type-count-total scout-cavalry-line < 18)
+=>
+    (train scout-cavalry-line)
+)
+
+; Steppe Lancers
+(defrule
+    (difficulty == easy)
+    (unit-type-count-total steppe-lancer-line < 5)
+=>
+    (train steppe-lancer-line)
+)
+(defrule
+    (difficulty == moderate)
+    (unit-type-count-total steppe-lancer-line < 12)
+=>
+    (train steppe-lancer-line)
+)
+(defrule
+    (difficulty == hard)
+    (unit-type-count-total steppe-lancer-line < 20)
+=>
+    (train steppe-lancer-line)
+)
+
+; Cavalry Archers
+(defrule
+    (difficulty == easy)
+    (unit-type-count-total cavalry-archer-line < 7)
+=>
+    (train cavalry-archer-line)
+)
+(defrule
+    (difficulty == moderate)
+    (unit-type-count-total cavalry-archer-line < 14)
+=>
+    (train cavalry-archer-line)
+)
+(defrule
+    (difficulty == hard)
+    (unit-type-count-total cavalry-archer-line < 21)
+=>
+    (train cavalry-archer-line)
+)
+
+; Mangudai
+(defrule
+    (difficulty == easy)
+    (unit-type-count-total mangudai-line < 4)
+=>
+    (train mangudai-line)
+)
+(defrule
+    (difficulty == moderate)
+    (unit-type-count-total mangudai-line < 8)
+=>
+    (train mangudai-line)
+)
+(defrule
+    (difficulty == hard)
+    (unit-type-count-total mangudai-line < 12)
+=>
+    (train mangudai-line)
+)
+
+; Resources
+
+(defrule
+    (true)
+=>
+    (enable-timer 5 400)
+    (disable-self)
+)
+
+(defrule
+    (difficulty == easy)
+    (timer-triggered 5)
+=>
+    (cc-add-resource food 300)
+    (cc-add-resource wood 300)
+    (cc-add-resource gold 500)
+    (disable-timer 5)
+    (enable-timer 5 400)
+)
+
+(defrule
+    (difficulty == moderate)
+    (timer-triggered 5)
+=>
+    (cc-add-resource food 400)
+    (cc-add-resource wood 400)
+    (cc-add-resource gold 600)
+    (disable-timer 5)
+    (enable-timer 5 400)
+)
+
+(defrule
+    (difficulty == hard)
+    (timer-triggered 5)
+=>
+    (cc-add-resource food 500)
+    (cc-add-resource wood 500)
+    (cc-add-resource gold 750)
+    (disable-timer 5)
+    (enable-timer 5 400)
+)
+
+
+; Indian Traders Lose
+
+(defrule
+    (event-detected trigger 9)
+=>
+    (set-strategic-number sn-target-player-number 1)
+)

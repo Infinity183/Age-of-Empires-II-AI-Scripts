@@ -1,0 +1,275 @@
+; Arab Resource Camps
+
+(defrule	
+	(true)
+=>
+    (set-strategic-number sn-maximum-town-size 35)
+    (set-strategic-number sn-camp-max-distance 5)
+    (set-strategic-number sn-mill-max-distance 15)
+    (set-strategic-number sn-percent-civilian-gatherers 100)
+    (set-strategic-number sn-number-explore-groups 0)
+ 	(set-strategic-number sn-total-number-explorers 0)
+)
+; Villager Designation
+
+(defrule
+    (true)
+=>
+    (set-strategic-number sn-food-gatherer-percentage 36)
+    (set-strategic-number sn-wood-gatherer-percentage 28)
+    (set-strategic-number sn-gold-gatherer-percentage 36)
+    (set-strategic-number sn-maximum-food-drop-distance 12)
+    (set-strategic-number sn-maximum-wood-drop-distance 12)
+    (set-strategic-number sn-maximum-gold-drop-distance 8)
+)
+
+; Tributes
+
+(defrule
+    (true)
+=>
+    (enable-timer 1 150)
+    (enable-timer 2 150)
+    (enable-timer 3 150)
+    (enable-timer 5 3000)
+    (disable-self)
+)
+
+; Food Tributes
+
+; No Docks Lost
+(defrule
+    (timer-triggered 1)
+    (not (event-detected trigger 21))
+    (not (event-detected trigger 22))
+    (not (event-detected trigger 23))
+    (not (event-detected trigger 24))
+    (not (event-detected trigger 25))
+    (not (event-detected trigger 26))
+=>
+    (tribute-to-player 2 food 1200)
+    (disable-timer 1)
+    (enable-timer 1 150)
+)
+
+; One Dock Lost
+(defrule
+    (timer-triggered 1)
+    (event-detected trigger 21)
+    (not (event-detected trigger 22))
+    (not (event-detected trigger 23))
+    (not (event-detected trigger 24))
+    (not (event-detected trigger 25))
+    (not (event-detected trigger 26))
+=>
+    (tribute-to-player 2 food 1000)
+    (disable-timer 1)
+    (enable-timer 1 150)
+)
+
+; Two Docks Lost
+(defrule
+    (timer-triggered 1)
+    (event-detected trigger 21)
+    (event-detected trigger 22)
+    (not (event-detected trigger 23))
+    (not (event-detected trigger 24))
+    (not (event-detected trigger 25))
+    (not (event-detected trigger 26))
+=>
+    (tribute-to-player 2 food 800)
+    (disable-timer 1)
+    (enable-timer 1 150)
+)
+
+; Three Docks Lost
+(defrule
+    (timer-triggered 1)
+    (event-detected trigger 21)
+    (event-detected trigger 22)
+    (event-detected trigger 23)
+    (not (event-detected trigger 24))
+    (not (event-detected trigger 25))
+    (not (event-detected trigger 26))
+=>
+    (tribute-to-player 2 food 600)
+    (disable-timer 1)
+    (enable-timer 1 150)
+)
+
+; Four Docks Lost
+(defrule
+    (timer-triggered 1)
+    (event-detected trigger 21)
+    (event-detected trigger 22)
+    (event-detected trigger 23)
+    (event-detected trigger 24)
+    (not (event-detected trigger 25))
+    (not (event-detected trigger 26))
+=>
+    (tribute-to-player 2 food 400)
+    (disable-timer 1)
+    (enable-timer 1 150)
+)
+
+; Five Docks Lost
+(defrule
+    (timer-triggered 1)
+    (event-detected trigger 21)
+    (event-detected trigger 22)
+    (event-detected trigger 23)
+    (event-detected trigger 24)
+    (event-detected trigger 25)
+    (not (event-detected trigger 26))
+=>
+    (tribute-to-player 2 food 200)
+    (disable-timer 1)
+    (enable-timer 1 150)
+)
+
+; Gold Tributes
+
+; No Camps Lost
+(defrule
+    (timer-triggered 2)
+    (not (event-detected trigger 31))
+    (not (event-detected trigger 32))
+    (not (event-detected trigger 33))
+    (not (event-detected trigger 34))
+    (not (event-detected trigger 35))
+=>
+    (tribute-to-player 2 gold 750)
+    (disable-timer 2)
+    (enable-timer 2 150)
+)
+
+; One Camp Lost
+(defrule
+    (timer-triggered 2)
+    (event-detected trigger 31)
+    (not (event-detected trigger 32))
+    (not (event-detected trigger 33))
+    (not (event-detected trigger 34))
+    (not (event-detected trigger 35))
+=>
+    (tribute-to-player 2 gold 600)
+    (disable-timer 2)
+    (enable-timer 2 150)
+)
+
+; Two Camps Lost
+(defrule
+    (timer-triggered 2)
+    (event-detected trigger 31)
+    (event-detected trigger 32)
+    (not (event-detected trigger 33))
+    (not (event-detected trigger 34))
+    (not (event-detected trigger 35))
+=>
+    (tribute-to-player 2 gold 450)
+    (disable-timer 2)
+    (enable-timer 2 150)
+)
+ 
+; Three Camps Lost
+(defrule
+    (timer-triggered 2)
+    (event-detected trigger 31)
+    (event-detected trigger 32)
+    (event-detected trigger 33)
+    (not (event-detected trigger 34))
+    (not (event-detected trigger 35))
+=>
+    (tribute-to-player 2 gold 300)
+    (disable-timer 2)
+    (enable-timer 2 150)
+)
+
+; Four Camps Lost
+(defrule
+    (timer-triggered 2)
+    (event-detected trigger 31)
+    (event-detected trigger 32)
+    (event-detected trigger 33)
+    (event-detected trigger 34)
+    (not (event-detected trigger 35))
+=>
+    (tribute-to-player 2 gold 150)
+    (disable-timer 2)
+    (enable-timer 2 150)
+)
+
+; Wood Tributes
+
+; No Camps Lost
+(defrule
+    (timer-triggered 3)
+    (not (event-detected trigger 41))
+    (not (event-detected trigger 42))
+    (not (event-detected trigger 43))
+    (not (event-detected trigger 44))
+=>
+    (tribute-to-player 2 wood 800)
+    (disable-timer 3)
+    (enable-timer 3 150)
+)
+
+; One Camp Lost
+(defrule
+    (timer-triggered 3)
+    (event-detected trigger 41)
+    (not (event-detected trigger 42))
+    (not (event-detected trigger 43))
+    (not (event-detected trigger 44))
+=>
+    (tribute-to-player 2 wood 600)
+    (disable-timer 3)
+    (enable-timer 3 150)
+)
+
+; Two Camps Lost
+(defrule
+    (timer-triggered 3)
+    (event-detected trigger 41)
+    (event-detected trigger 42)
+    (not (event-detected trigger 43))
+    (not (event-detected trigger 44))
+=>
+    (tribute-to-player 2 wood 400)
+    (disable-timer 3)
+    (enable-timer 3 150)
+)
+
+; Three Camps Lost
+(defrule
+    (timer-triggered 3)
+    (event-detected trigger 41)
+    (event-detected trigger 42)
+    (event-detected trigger 43)
+    (not (event-detected trigger 44))
+=>
+    (tribute-to-player 2 wood 200)
+    (disable-timer 3)
+    (enable-timer 3 150)
+)
+
+; Switch to Fish Traps
+
+(defrule
+    (game-time > 1200)
+    (building-type-count-total fish-trap less-than 20)
+=>
+    (build fish-trap)
+)
+
+; Extra Resources
+
+(defrule
+    (timer-triggered 5)
+=>
+    (cc-add-resource food 1000)
+    (cc-add-resource gold 1000)
+    (cc-add-resource wood 1000)
+    (disable-timer 5)
+    (enable-timer 5 300)
+)

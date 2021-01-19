@@ -1,0 +1,36 @@
+; Immobile Raiders (Western Turks)
+
+(defrule	
+	(true)
+=>
+	(set-strategic-number sn-defense-distance 15)
+	(set-strategic-number sn-sentry-distance 15)
+	(set-strategic-number sn-percent-enemy-sighted-response 100)
+	(set-strategic-number sn-enemy-sighted-response-distance 10)
+	(set-strategic-number sn-sentry-distance 10)
+	(disable-self)
+)
+
+; Dodge
+
+(defrule
+	(difficulty == easy)
+=>
+	(set-difficulty-parameter ability-to-maintain-distance 90)
+	(set-difficulty-parameter ability-to-dodge-missiles 90)
+	(disable-self)
+)
+(defrule
+	(difficulty == moderate)
+=>
+	(set-difficulty-parameter ability-to-maintain-distance 80) 
+	(set-difficulty-parameter ability-to-dodge-missiles 80)
+	(disable-self)
+)
+(defrule
+	(difficulty == hard)
+=>
+	(set-difficulty-parameter ability-to-maintain-distance 60) 
+	(set-difficulty-parameter ability-to-dodge-missiles 60)
+	(disable-self)
+)

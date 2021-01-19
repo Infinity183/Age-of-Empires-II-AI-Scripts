@@ -1,0 +1,59 @@
+; Arabs (Looking for Apranik)
+
+(defrule	
+	(true)
+=>
+	(set-strategic-number sn-defense-distance 10)
+	(set-strategic-number sn-sentry-distance 10)
+	(set-strategic-number sn-percent-enemy-sighted-response 100)
+	(set-strategic-number sn-enemy-sighted-response-distance 6)
+	(set-strategic-number sn-sentry-distance 5)
+	(set-strategic-number sn-percent-attack-soldiers 100)
+	(set-strategic-number sn-group-form-distance 100)
+	(set-strategic-number sn-number-attack-groups 3)
+	(disable-self)
+)
+
+; Dodge
+
+(defrule
+	(difficulty == easy)
+=>
+	(set-difficulty-parameter ability-to-maintain-distance 95)
+	(set-difficulty-parameter ability-to-dodge-missiles 95)
+	(disable-self)
+)
+(defrule
+	(difficulty == moderate)
+=>
+	(set-difficulty-parameter ability-to-maintain-distance 90) 
+	(set-difficulty-parameter ability-to-dodge-missiles 90)
+	(disable-self)
+)
+(defrule
+	(difficulty == hard)
+=>
+	(set-difficulty-parameter ability-to-maintain-distance 85) 
+	(set-difficulty-parameter ability-to-dodge-missiles 85)
+	(disable-self)
+)
+
+; They know where Apranik is
+
+(defrule
+	(event-detected trigger 5)
+=>
+	(attack-now)
+    (enable-timer 1 150)
+	(disable-self)
+)
+
+; Gonna find her! Searching.
+
+(defrule
+    (timer-triggered 1)
+=>
+    (attack-now)
+    (enable-timer 1 150)
+    (disable-self)
+)

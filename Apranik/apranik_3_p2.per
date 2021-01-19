@@ -1,0 +1,938 @@
+;Arabs have come to Pakistan
+
+;Set basic military functions.
+
+(defrule
+	(true)
+=>
+	(set-strategic-number sn-percent-enemy-sighted-response 100)
+	(set-strategic-number sn-enemy-sighted-response-distance 30)
+	(set-strategic-number sn-blot-exploration-map 1)
+	(set-strategic-number sn-task-ungrouped-soldiers 0)
+	(set-strategic-number sn-wall-targeting-mode 1)
+	(set-strategic-number sn-number-explore-groups 1)
+	(disable-self)
+)
+
+; Army Size
+
+(defrule
+	(difficulty == easy)
+=>
+	(set-strategic-number sn-percent-attack-soldiers 30)
+)
+
+(defrule
+	(difficulty == moderate)
+=>
+	(set-strategic-number sn-percent-attack-soldiers 60)
+)
+
+(defrule
+	(difficulty == hard)
+=>
+	(set-strategic-number sn-percent-attack-soldiers 80)
+)
+
+; Attack intervals
+
+;Initial Attack
+
+(defrule
+	(difficulty == easy)
+	(game-time greater-than 1200)
+=>
+	(set-strategic-number sn-group-form-distance 30)
+	(set-strategic-number sn-number-attack-groups 3)
+	(attack-now)
+	(enable-timer 1 900)
+	(disable-self)
+)
+
+(defrule
+	(difficulty == moderate)
+	(game-time greater-than 900)
+=>
+	(set-strategic-number sn-group-form-distance 30)
+	(set-strategic-number sn-number-attack-groups 3)
+	(attack-now)
+	(enable-timer 1 750)
+	(disable-self)
+)
+
+(defrule
+	(difficulty == hard)
+	(game-time greater-than 600)
+=>
+	(set-strategic-number sn-group-form-distance 30)
+	(set-strategic-number sn-number-attack-groups 3)
+	(attack-now)
+	(enable-timer 1 600)
+	(disable-self)
+)
+
+; Subsequent Attacks
+
+(defrule
+	(difficulty == easy)
+	(timer-triggered 1)
+	(military-population >= 16)
+=>
+	(attack-now)
+	(enable-timer 1 900)
+	(disable-self)
+)
+
+(defrule
+	(difficulty == moderate)
+	(timer-triggered 1)
+	(military-population >= 24)
+	(unit-type-count-total battering-ram-line > 2)
+=>
+	(attack-now)
+	(enable-timer 1 750)
+	(disable-self)
+)
+
+(defrule
+	(difficulty == hard)
+	(timer-triggered 1)
+	(military-population >= 32)
+	(unit-type-count-total battering-ram-line > 3)
+=>
+	(attack-now)
+	(enable-timer 1 600)
+	(disable-self)
+)
+
+
+; Resource Camps Attacked
+
+(defrule
+	(event-detected trigger 5)
+=>
+	(attack-now)
+	(disable-self)
+)
+
+
+; - - - - - - - - -
+; Army Composition
+; - - - - - - - - -
+
+; Camels
+
+;No Camel Stables Lost
+(defrule
+	(difficulty == easy)
+	(unit-type-count-total camel-line < 10)
+	(not (event-detected trigger 11))
+	(not (event-detected trigger 12))
+	(not (event-detected trigger 13))
+	(not (event-detected trigger 14))
+=>
+	(train camel-line)
+)
+(defrule
+	(difficulty == moderate)
+	(unit-type-count-total camel-line < 16)
+	(not (event-detected trigger 11))
+	(not (event-detected trigger 12))
+	(not (event-detected trigger 13))
+	(not (event-detected trigger 14))
+=>
+	(train camel-line)
+)
+(defrule
+	(difficulty == hard)
+	(unit-type-count-total camel-line < 25)
+	(not (event-detected trigger 11))
+	(not (event-detected trigger 12))
+	(not (event-detected trigger 13))
+	(not (event-detected trigger 14))
+=>
+	(train camel-line)
+)
+
+;First Camel Stable Lost
+(defrule
+	(difficulty == easy)
+	(unit-type-count-total camel-line < 8)
+	(event-detected trigger 11)
+	(not (event-detected trigger 12))
+	(not (event-detected trigger 13))
+	(not (event-detected trigger 14))
+=>
+	(train camel-line)
+)
+(defrule
+	(difficulty == moderate)
+	(unit-type-count-total camel-line < 12)
+	(event-detected trigger 11)
+	(not (event-detected trigger 12))
+	(not (event-detected trigger 13))
+	(not (event-detected trigger 14))
+=>
+	(train camel-line)
+)
+(defrule
+	(difficulty == hard)
+	(unit-type-count-total camel-line < 18)
+	(event-detected trigger 11)
+	(not (event-detected trigger 12))
+	(not (event-detected trigger 13))
+	(not (event-detected trigger 14))
+=>
+	(train camel-line)
+)
+
+;Second Camel Stable Lost
+(defrule
+	(difficulty == easy)
+	(unit-type-count-total camel-line < 6)
+	(event-detected trigger 11)
+	(event-detected trigger 12)
+	(not (event-detected trigger 13))
+	(not (event-detected trigger 14))
+=>
+	(train camel-line)
+)
+(defrule
+	(difficulty == moderate)
+	(unit-type-count-total camel-line < 9)
+	(event-detected trigger 11)
+	(event-detected trigger 12)
+	(not (event-detected trigger 13))
+	(not (event-detected trigger 14))
+=>
+	(train camel-line)
+)
+(defrule
+	(difficulty == hard)
+	(unit-type-count-total camel-line < 14)
+	(event-detected trigger 11)
+	(event-detected trigger 12)
+	(not (event-detected trigger 13))
+	(not (event-detected trigger 14))
+=>
+	(train camel-line)
+)
+
+;Third Camel Stable Lost
+(defrule
+	(difficulty == easy)
+	(unit-type-count-total camel-line < 3)
+	(event-detected trigger 11)
+	(event-detected trigger 12)
+	(event-detected trigger 13)
+	(not (event-detected trigger 14))
+=>
+	(train camel-line)
+)
+(defrule
+	(difficulty == moderate)
+	(unit-type-count-total camel-line < 5)
+	(event-detected trigger 11)
+	(event-detected trigger 12)
+	(event-detected trigger 13)
+	(not (event-detected trigger 14))
+=>
+	(train camel-line)
+)
+(defrule
+	(difficulty == hard)
+	(unit-type-count-total camel-line < 7)
+	(event-detected trigger 11)
+	(event-detected trigger 12)
+	(event-detected trigger 13)
+	(not (event-detected trigger 14))
+=>
+	(train camel-line)
+)
+
+
+; Mamelukes
+
+;No Camel Stables Lost
+(defrule
+	(difficulty == easy)
+	(unit-type-count-total mameluke-line < 8)
+	(not (event-detected trigger 11))
+	(not (event-detected trigger 12))
+	(not (event-detected trigger 13))
+	(not (event-detected trigger 14))
+=>
+	(train mameluke-line)
+)
+(defrule
+	(difficulty == moderate)
+	(unit-type-count-total mameluke-line < 15)
+	(not (event-detected trigger 11))
+	(not (event-detected trigger 12))
+	(not (event-detected trigger 13))
+	(not (event-detected trigger 14))
+=>
+	(train mameluke-line)
+)
+(defrule
+	(difficulty == hard)
+	(unit-type-count-total mameluke-line < 20)
+	(not (event-detected trigger 11))
+	(not (event-detected trigger 12))
+	(not (event-detected trigger 13))
+	(not (event-detected trigger 14))
+=>
+	(train mameluke-line)
+)
+
+;First Camel Stable Lost
+(defrule
+	(difficulty == easy)
+	(unit-type-count-total mameluke-line < 6)
+	(event-detected trigger 11)
+	(not (event-detected trigger 12))
+	(not (event-detected trigger 13))
+	(not (event-detected trigger 14))
+=>
+	(train mameluke-line)
+)
+(defrule
+	(difficulty == moderate)
+	(unit-type-count-total mameluke-line < 11)
+	(event-detected trigger 11)
+	(not (event-detected trigger 12))
+	(not (event-detected trigger 13))
+	(not (event-detected trigger 14))
+=>
+	(train mameluke-line)
+)
+(defrule
+	(difficulty == hard)
+	(unit-type-count-total mameluke-line < 15)
+	(event-detected trigger 11)
+	(not (event-detected trigger 12))
+	(not (event-detected trigger 13))
+	(not (event-detected trigger 14))
+=>
+	(train mameluke-line)
+)
+
+;Second Camel Stable Lost
+(defrule
+	(difficulty == easy)
+	(unit-type-count-total mameluke-line < 4)
+	(event-detected trigger 11)
+	(event-detected trigger 12)
+	(not (event-detected trigger 13))
+	(not (event-detected trigger 14))
+=>
+	(train mameluke-line)
+)
+(defrule
+	(difficulty == moderate)
+	(unit-type-count-total mameluke-line < 7)
+	(event-detected trigger 11)
+	(event-detected trigger 12)
+	(not (event-detected trigger 13))
+	(not (event-detected trigger 14))
+=>
+	(train mameluke-line)
+)
+(defrule
+	(difficulty == hard)
+	(unit-type-count-total mameluke-line < 10)
+	(event-detected trigger 11)
+	(event-detected trigger 12)
+	(not (event-detected trigger 13))
+	(not (event-detected trigger 14))
+=>
+	(train mameluke-line)
+)
+
+;Third Camel Stable Lost
+(defrule
+	(difficulty == easy)
+	(unit-type-count-total mameluke-line < 3)
+	(event-detected trigger 11)
+	(event-detected trigger 12)
+	(event-detected trigger 13)
+	(not (event-detected trigger 14))
+=>
+	(train mameluke-line)
+)
+(defrule
+	(difficulty == moderate)
+	(unit-type-count-total mameluke-line < 4)
+	(event-detected trigger 11)
+	(event-detected trigger 12)
+	(event-detected trigger 13)
+	(not (event-detected trigger 14))
+=>
+	(train mameluke-line)
+)
+(defrule
+	(difficulty == hard)
+	(unit-type-count-total mameluke-line < 5)
+	(event-detected trigger 11)
+	(event-detected trigger 12)
+	(event-detected trigger 13)
+	(not (event-detected trigger 14))
+=>
+	(train mameluke-line)
+)
+
+; Camel Archers
+
+;No Camel Stables Lost
+(defrule
+	(difficulty == easy)
+	(unit-type-count-total camel-archer-line < 8)
+	(not (event-detected trigger 11))
+	(not (event-detected trigger 12))
+	(not (event-detected trigger 13))
+	(not (event-detected trigger 14))
+=>
+	(train camel-archer-line)
+)
+(defrule
+	(difficulty == moderate)
+	(unit-type-count-total camel-archer-line < 15)
+	(not (event-detected trigger 11))
+	(not (event-detected trigger 12))
+	(not (event-detected trigger 13))
+	(not (event-detected trigger 14))
+=>
+	(train camel-archer-line)
+)
+(defrule
+	(difficulty == hard)
+	(unit-type-count-total camel-archer-line < 20)
+	(not (event-detected trigger 11))
+	(not (event-detected trigger 12))
+	(not (event-detected trigger 13))
+	(not (event-detected trigger 14))
+=>
+	(train camel-archer-line)
+)
+
+;First Camel Stable Lost
+(defrule
+	(difficulty == easy)
+	(unit-type-count-total camel-archer-line < 6)
+	(event-detected trigger 11)
+	(not (event-detected trigger 12))
+	(not (event-detected trigger 13))
+	(not (event-detected trigger 14))
+=>
+	(train mameluke-line)
+)
+(defrule
+	(difficulty == moderate)
+	(unit-type-count-total camel-archer-line < 11)
+	(event-detected trigger 11)
+	(not (event-detected trigger 12))
+	(not (event-detected trigger 13))
+	(not (event-detected trigger 14))
+=>
+	(train camel-archer-line)
+)
+(defrule
+	(difficulty == hard)
+	(unit-type-count-total camel-archer-line < 15)
+	(event-detected trigger 11)
+	(not (event-detected trigger 12))
+	(not (event-detected trigger 13))
+	(not (event-detected trigger 14))
+=>
+	(train camel-archer-line)
+)
+
+;Second Camel Stable Lost
+(defrule
+	(difficulty == easy)
+	(unit-type-count-total camel-archer-line < 4)
+	(event-detected trigger 11)
+	(event-detected trigger 12)
+	(not (event-detected trigger 13))
+	(not (event-detected trigger 14))
+=>
+	(train camel-archer-line)
+)
+(defrule
+	(difficulty == moderate)
+	(unit-type-count-total camel-archer-line < 7)
+	(event-detected trigger 11)
+	(event-detected trigger 12)
+	(not (event-detected trigger 13))
+	(not (event-detected trigger 14))
+=>
+	(train camel-archer-line)
+)
+(defrule
+	(difficulty == hard)
+	(unit-type-count-total camel-archer-line < 10)
+	(event-detected trigger 11)
+	(event-detected trigger 12)
+	(not (event-detected trigger 13))
+	(not (event-detected trigger 14))
+=>
+	(train camel-archer-line)
+)
+
+;Third Camel Stable Lost
+(defrule
+	(difficulty == easy)
+	(unit-type-count-total camel-archer-line < 3)
+	(event-detected trigger 11)
+	(event-detected trigger 12)
+	(event-detected trigger 13)
+	(not (event-detected trigger 14))
+=>
+	(train camel-archer-line)
+)
+(defrule
+	(difficulty == moderate)
+	(unit-type-count-total camel-archer-line < 4)
+	(event-detected trigger 11)
+	(event-detected trigger 12)
+	(event-detected trigger 13)
+	(not (event-detected trigger 14))
+=>
+	(train camel-archer-line)
+)
+(defrule
+	(difficulty == hard)
+	(unit-type-count-total camel-archer-line < 5)
+	(event-detected trigger 11)
+	(event-detected trigger 12)
+	(event-detected trigger 13)
+	(not (event-detected trigger 14))
+=>
+	(train camel-archer-line)
+)
+
+; Trash Replacements 1
+
+;First Camel Stable Lost
+(defrule
+	(difficulty == easy)
+	(unit-type-count-total scout-cavalry-line < 3)
+	(event-detected trigger 11)
+	(not (event-detected trigger 12))
+	(not (event-detected trigger 13))
+	(not (event-detected trigger 14))
+=>
+	(train scout-cavalry-line)
+)
+(defrule
+	(difficulty == moderate)
+	(unit-type-count-total scout-cavalry-line < 5)
+	(event-detected trigger 11)
+	(not (event-detected trigger 12))
+	(not (event-detected trigger 13))
+	(not (event-detected trigger 14))
+=>
+	(train scout-cavalry-line)
+)
+(defrule
+	(difficulty == hard)
+	(unit-type-count-total scout-cavalry-line < 7)
+	(event-detected trigger 11)
+	(not (event-detected trigger 12))
+	(not (event-detected trigger 13))
+	(not (event-detected trigger 14))
+=>
+	(train scout-cavalry-line)
+)
+
+;Second Camel Stable Lost
+(defrule
+	(difficulty == easy)
+	(unit-type-count-total scout-cavalry-line < 4)
+	(event-detected trigger 11)
+	(event-detected trigger 12)
+	(not (event-detected trigger 13))
+	(not (event-detected trigger 14))
+=>
+	(train scout-cavalry-line)
+)
+(defrule
+	(difficulty == moderate)
+	(unit-type-count-total scout-cavalry-line < 8)
+	(event-detected trigger 11)
+	(event-detected trigger 12)
+	(not (event-detected trigger 13))
+	(not (event-detected trigger 14))
+=>
+	(train scout-cavalry-line)
+)
+(defrule
+	(difficulty == hard)
+	(unit-type-count-total scout-cavalry-line < 14)
+	(event-detected trigger 11)
+	(event-detected trigger 12)
+	(not (event-detected trigger 13))
+	(not (event-detected trigger 14))
+=>
+	(train scout-cavalry-line)
+)
+
+;Third Camel Stable Lost
+(defrule
+	(difficulty == easy)
+	(unit-type-count-total scout-cavalry-line < 6)
+	(event-detected trigger 11)
+	(event-detected trigger 12)
+	(event-detected trigger 13)
+	(not (event-detected trigger 14))
+=>
+	(train scout-cavalry-line)
+)
+(defrule
+	(difficulty == moderate)
+	(unit-type-count-total scout-cavalry-line < 11)
+	(event-detected trigger 11)
+	(event-detected trigger 12)
+	(event-detected trigger 13)
+	(not (event-detected trigger 14))
+=>
+	(train scout-cavalry-line)
+)
+(defrule
+	(difficulty == hard)
+	(unit-type-count-total scout-cavalry-line < 19)
+	(event-detected trigger 11)
+	(event-detected trigger 12)
+	(event-detected trigger 13)
+	(not (event-detected trigger 14))
+=>
+	(train scout-cavalry-line)
+)
+
+;All Camel Stables Lost
+(defrule
+	(difficulty == easy)
+	(unit-type-count-total scout-cavalry-line < 10)
+	(event-detected trigger 14)
+=>
+	(train scout-cavalry-line)
+)
+(defrule
+	(difficulty == moderate)
+	(unit-type-count-total scout-cavalry-line < 15)
+	(event-detected trigger 14)
+=>
+	(train scout-cavalry-line)
+)
+(defrule
+	(difficulty == hard)
+	(unit-type-count-total scout-cavalry-line < 25)
+	(event-detected trigger 14)
+=>
+	(train scout-cavalry-line)
+)
+
+; Trash Replacements 2
+
+;First Camel Stable Lost
+(defrule
+	(difficulty == easy)
+	(unit-type-count-total genitour-line < 3)
+	(event-detected trigger 11)
+	(not (event-detected trigger 12))
+	(not (event-detected trigger 13))
+	(not (event-detected trigger 14))
+=>
+	(train genitour-line)
+)
+(defrule
+	(difficulty == moderate)
+	(unit-type-count-total genitour-line < 5)
+	(event-detected trigger 11)
+	(not (event-detected trigger 12))
+	(not (event-detected trigger 13))
+	(not (event-detected trigger 14))
+=>
+	(train genitour-line)
+)
+(defrule
+	(difficulty == hard)
+	(unit-type-count-total genitour-line < 7)
+	(event-detected trigger 11)
+	(not (event-detected trigger 12))
+	(not (event-detected trigger 13))
+	(not (event-detected trigger 14))
+=>
+	(train genitour-line)
+)
+
+;Second Camel Stable Lost
+(defrule
+	(difficulty == easy)
+	(unit-type-count-total genitour-line < 4)
+	(event-detected trigger 11)
+	(event-detected trigger 12)
+	(not (event-detected trigger 13))
+	(not (event-detected trigger 14))
+=>
+	(train genitour-line)
+)
+(defrule
+	(difficulty == moderate)
+	(unit-type-count-total genitour-line < 8)
+	(event-detected trigger 11)
+	(event-detected trigger 12)
+	(not (event-detected trigger 13))
+	(not (event-detected trigger 14))
+=>
+	(train genitour-line)
+)
+(defrule
+	(difficulty == hard)
+	(unit-type-count-total genitour-line < 14)
+	(event-detected trigger 11)
+	(event-detected trigger 12)
+	(not (event-detected trigger 13))
+	(not (event-detected trigger 14))
+=>
+	(train genitour-line)
+)
+
+;Third Camel Stable Lost
+(defrule
+	(difficulty == easy)
+	(unit-type-count-total genitour-line < 6)
+	(event-detected trigger 11)
+	(event-detected trigger 12)
+	(event-detected trigger 13)
+	(not (event-detected trigger 14))
+=>
+	(train genitour-line)
+)
+(defrule
+	(difficulty == moderate)
+	(unit-type-count-total genitour-line < 11)
+	(event-detected trigger 11)
+	(event-detected trigger 12)
+	(event-detected trigger 13)
+	(not (event-detected trigger 14))
+=>
+	(train genitour-line)
+)
+(defrule
+	(difficulty == hard)
+	(unit-type-count-total genitour-line < 19)
+	(event-detected trigger 11)
+	(event-detected trigger 12)
+	(event-detected trigger 13)
+	(not (event-detected trigger 14))
+=>
+	(train genitour-line)
+)
+
+;All Camel Stables Lost
+(defrule
+	(difficulty == easy)
+	(unit-type-count-total genitour-line < 10)
+	(event-detected trigger 14)
+=>
+	(train genitour-line)
+)
+(defrule
+	(difficulty == moderate)
+	(unit-type-count-total genitour-line < 15)
+	(event-detected trigger 14)
+=>
+	(train genitour-line)
+)
+(defrule
+	(difficulty == hard)
+	(unit-type-count-total genitour-line < 25)
+	(event-detected trigger 14)
+=>
+	(train genitour-line)
+)
+
+; Trash Replacements 3
+
+;First Camel Stable Lost
+(defrule
+	(difficulty == easy)
+	(unit-type-count-total skirmisher-line < 3)
+	(event-detected trigger 11)
+	(not (event-detected trigger 12))
+	(not (event-detected trigger 13))
+	(not (event-detected trigger 14))
+=>
+	(train skirmisher-line)
+)
+(defrule
+	(difficulty == moderate)
+	(unit-type-count-total skirmisher-line < 5)
+	(event-detected trigger 11)
+	(not (event-detected trigger 12))
+	(not (event-detected trigger 13))
+	(not (event-detected trigger 14))
+=>
+	(train skirmisher-line)
+)
+(defrule
+	(difficulty == hard)
+	(unit-type-count-total skirmisher-line < 7)
+	(event-detected trigger 11)
+	(not (event-detected trigger 12))
+	(not (event-detected trigger 13))
+	(not (event-detected trigger 14))
+=>
+	(train skirmisher-line)
+)
+
+;Second Camel Stable Lost
+(defrule
+	(difficulty == easy)
+	(unit-type-count-total skirmisher-line < 4)
+	(event-detected trigger 11)
+	(event-detected trigger 12)
+	(not (event-detected trigger 13))
+	(not (event-detected trigger 14))
+=>
+	(train skirmisher-line)
+)
+(defrule
+	(difficulty == moderate)
+	(unit-type-count-total skirmisher-line < 8)
+	(event-detected trigger 11)
+	(event-detected trigger 12)
+	(not (event-detected trigger 13))
+	(not (event-detected trigger 14))
+=>
+	(train skirmisher-line)
+)
+(defrule
+	(difficulty == hard)
+	(unit-type-count-total skirmisher-line < 14)
+	(event-detected trigger 11)
+	(event-detected trigger 12)
+	(not (event-detected trigger 13))
+	(not (event-detected trigger 14))
+=>
+	(train skirmisher-line)
+)
+
+;Third Camel Stable Lost
+(defrule
+	(difficulty == easy)
+	(unit-type-count-total skirmisher-line < 6)
+	(event-detected trigger 11)
+	(event-detected trigger 12)
+	(event-detected trigger 13)
+	(not (event-detected trigger 14))
+=>
+	(train skirmisher-line)
+)
+(defrule
+	(difficulty == moderate)
+	(unit-type-count-total skirmisher-line < 11)
+	(event-detected trigger 11)
+	(event-detected trigger 12)
+	(event-detected trigger 13)
+	(not (event-detected trigger 14))
+=>
+	(train skirmisher-line)
+)
+(defrule
+	(difficulty == hard)
+	(unit-type-count-total skirmisher-line < 19)
+	(event-detected trigger 11)
+	(event-detected trigger 12)
+	(event-detected trigger 13)
+	(not (event-detected trigger 14))
+=>
+	(train skirmisher-line)
+)
+
+;All Camel Stables Lost
+(defrule
+	(difficulty == easy)
+	(unit-type-count-total skirmisher-line < 10)
+	(event-detected trigger 14)
+=>
+	(train skirmisher-line)
+)
+(defrule
+	(difficulty == moderate)
+	(unit-type-count-total skirmisher-line < 15)
+	(event-detected trigger 14)
+=>
+	(train skirmisher-line)
+)
+(defrule
+	(difficulty == hard)
+	(unit-type-count-total skirmisher-line < 25)
+	(event-detected trigger 14)
+=>
+	(train skirmisher-line)
+)
+
+; Eastern Swordsmen
+(defrule
+	(difficulty == easy)
+	(unit-type-count-total 894 < 12)
+=>
+	(train 894)
+)
+(defrule
+	(difficulty == moderate)
+	(unit-type-count-total 894 < 22)
+=>
+	(train 894)
+)
+(defrule
+	(difficulty == hard)
+	(unit-type-count-total 894 < 30)
+=>
+	(train 894)
+)
+
+
+; Siege Weapons
+
+; Rams
+(defrule
+	(difficulty == easy)
+	(unit-type-count-total battering-ram-line < 3)
+=>
+	(train battering-ram-line)
+)
+(defrule
+	(difficulty == moderate)
+	(unit-type-count-total battering-ram-line < 4)
+=>
+	(train battering-ram-line)
+)
+(defrule
+	(difficulty == hard)
+	(unit-type-count-total battering-ram-line < 5)
+=>
+	(train battering-ram-line)
+)
+
+; Trebuchets
+(defrule
+	(difficulty == easy)
+	(unit-type-count-total trebuchet < 2)
+=>
+	(train trebuchet)
+)
+(defrule
+	(difficulty == moderate)
+	(unit-type-count-total battering-ram-line < 3)
+=>
+	(train trebuchet)
+)
+(defrule
+	(difficulty == hard)
+	(unit-type-count-total battering-ram-line < 5)
+=>
+	(train trebuchet)
+)

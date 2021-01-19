@@ -1,0 +1,81 @@
+;-------------------------------------------------------
+;Libyan Scouts
+;-------------------------------------------------------
+
+;***Set Constants***
+;---GENERAL---
+(defconst yes 1)
+(defconst no 0)
+(defconst aisignal 01)
+(defconst allow-signal 17)
+(defconst active-at-start 18)
+(defconst activate 19)
+(defconst combi 20)
+
+;---OTHERS---
+(defconst percentage-gatherers 100) 
+(defconst percentage-explorers 100) 
+
+;***Set Goals***
+(defrule
+    (true)
+=>
+    (set-goal allow-signal 1)
+    (set-strategic-number sn-total-number-explorers 8)
+)
+
+;---Upgrades---
+
+;---Activation---
+;when a signal is send or the AI is allowed to be active at start it will tell the AI to enable the activate goal. This goal will make the AI active. (Combi is for backwards compability)
+
+(defrule
+	(or
+		(and
+		(event-detected trigger aisignal)
+		(goal allow-signal yes)
+		)
+	(goal active-at-start yes)
+	)
+=>
+	(set-goal activate yes)
+	(set-goal combi yes)
+	(disable-self)
+)
+
+
+;***Setup***
+;---Load Externals---
+;load extra files. These files are generic and take care of the resigning of the AI, its upgrades and the active use of the market.
+
+;---Immobile Behaviour---
+;default behaviour is set to immobile
+
+(defrule
+	(goal active-at-start no)
+=>
+	(disable-self)
+)
+
+;---Active Behaviour---
+;when activated the AI will begin to play
+
+(defrule
+	(goal activate yes)
+=>
+	(set-strategic-number sn-number-explore-groups 8)
+	(disable-self)
+)
+
+;***Production***
+;---Homebase Stats---
+
+(defrule
+	(goal activate yes)
+=>
+	(set-strategic-number sn-percent-enemy-sighted-response 0)
+	(set-strategic-number sn-enemy-sighted-response-distance 0)
+	(set-strategic-number sn-blot-exploration-map 0)
+	(set-strategic-number sn-sentry-distance 0)
+	(disable-self)
+)

@@ -1,0 +1,469 @@
+; Rashidun Persians
+
+(defrule	
+	(true)
+=>
+    (set-strategic-number sn-maximum-town-size 35)
+    (set-strategic-number sn-camp-max-distance 35)
+    (set-strategic-number sn-mill-max-distance 35)
+    (set-strategic-number sn-wall-targeting-mode 1)
+    (set-strategic-number sn-percent-civilian-builders 15)
+    (set-strategic-number sn-percent-civilian-gatherers 85)
+
+	(set-strategic-number sn-number-explore-groups 1)
+ 	(set-strategic-number sn-total-number-explorers 1)
+
+	(set-strategic-number sn-defense-distance 20)
+	(set-strategic-number sn-sentry-distance 20)
+	(set-strategic-number sn-percent-enemy-sighted-response 100)
+	(set-strategic-number sn-enemy-sighted-response-distance 15)
+	(set-strategic-number sn-sentry-distance 15)
+	(disable-self)
+)
+
+(defconst military-techs 4)
+(defconst blacksmith-techs 6)
+
+; Upgrading
+
+(defrule
+	(true)
+=>
+	(set-escrow-percentage wood 90)
+	(set-escrow-percentage food 90)
+	(set-escrow-percentage gold 90)
+	(set-escrow-percentage stone 90)
+)
+
+; Cavalier
+(defrule
+	(can-research-with-escrow ri-cavalier)
+=>
+	(release-escrow wood)
+	(release-escrow food)
+	(release-escrow gold)
+	(release-escrow stone)
+	(research ri-cavalier)
+)
+
+; Paladin
+(defrule
+	(can-research-with-escrow ri-paladin)
+=>
+	(release-escrow wood)
+	(release-escrow food)
+	(release-escrow gold)
+	(release-escrow stone)
+	(research ri-paladin)
+)
+
+; Elite War Elephant
+(defrule
+	(game-time > 1000)
+	(can-research-with-escrow ri-elite-war-elephant)
+=>
+	(release-escrow wood)
+	(release-escrow food)
+	(release-escrow gold)
+	(release-escrow stone)
+		(research ri-elite-war-elephant)
+)
+
+; Chemistry
+(defrule
+    (game-time > 300)
+    (can-research-with-escrow ri-chemistry)
+=>
+    (release-escrow wood)
+    (release-escrow food)
+    (release-escrow gold)
+    (release-escrow stone)
+    (research ri-chemistry)
+)
+
+; Crop Rotation
+(defrule
+    (game-time > 200)
+    (can-research-with-escrow ri-crop-rotation)
+=>
+    (release-escrow wood)
+    (release-escrow food)
+    (release-escrow gold)
+    (release-escrow stone)
+    (research ri-crop-rotation)
+)
+
+; Mahouts
+(defrule
+    (can-research-with-escrow my-unique-research)
+=>
+    (release-escrow wood)
+    (release-escrow food)
+    (release-escrow gold)
+    (release-escrow stone)
+    (research my-unique-research)
+)
+
+; Blast Furnace
+(defrule
+    (can-research-with-escrow ri-blast-furnace)
+=>
+    (release-escrow wood)
+    (release-escrow food)
+    (release-escrow gold)
+    (release-escrow stone)
+    (research ri-blast-furnace)
+)
+
+; Plate Barding Armor
+(defrule
+    (can-research-with-escrow ri-plate-barding)
+=>
+    (release-escrow wood)
+    (release-escrow food)
+    (release-escrow gold)
+    (release-escrow stone)
+    (research ri-plate-barding)
+)
+
+; Ring Archer Armor
+(defrule
+    (can-research-with-escrow ri-ring-archer-armor)
+=>
+    (release-escrow wood)
+    (release-escrow food)
+    (release-escrow gold)
+    (release-escrow stone)
+    (research ri-ring-archer-armor)
+)
+
+; Two-Man Saw
+(defrule
+    (can-research-with-escrow ri-two-man-saw)
+=>
+    (release-escrow wood)
+    (release-escrow food)
+    (release-escrow gold)
+    (release-escrow stone)
+    (research ri-two-man-saw)
+)
+
+; Crop Rotation
+(defrule
+    (can-research-with-escrow ri-crop-rotation)
+=>
+    (release-escrow wood)
+    (release-escrow food)
+    (release-escrow gold)
+    (release-escrow stone)
+    (research ri-crop-rotation)
+)
+
+; Block Printing
+(defrule
+    (can-research-with-escrow ri-block-printing)
+=>
+    (release-escrow wood)
+    (release-escrow food)
+    (release-escrow gold)
+    (release-escrow stone)
+    (research ri-block-printing)
+)
+
+; Architecture
+(defrule
+    (can-research-with-escrow ri-architecture)
+=>
+    (release-escrow wood)
+    (release-escrow food)
+    (release-escrow gold)
+    (release-escrow stone)
+    (research ri-architecture)
+)
+
+
+; Army Size
+
+(defrule
+	(difficulty == easy)
+=>
+	(set-strategic-number sn-percent-attack-soldiers 40)
+)
+
+(defrule
+	(difficulty == moderate)
+=>
+	(set-strategic-number sn-percent-attack-soldiers 60)
+)
+
+(defrule
+	(difficulty == hard)
+=>
+	(set-strategic-number sn-percent-attack-soldiers 75)
+)
+
+; Number of Villagers
+
+(defrule
+    (unit-type-count-total villager less-than 50)
+=>
+    (train villager)
+)
+
+; Farm Maintenance
+
+(defrule
+    (building-type-count-total farm less-than 20)
+    (can-build farm)
+=>
+    (build farm)
+)
+
+; Wood
+
+(defrule
+    (resource-found wood)
+    (dropsite-min-distance wood > 5)
+    (building-type-count-total lumber-camp < 3)
+    (can-build lumber-camp)
+=>
+    (build lumber-camp)
+)
+
+; Gold
+
+(defrule
+    (resource-found gold)
+    (building-type-count-total mining-camp < 4)
+    (dropsite-min-distance gold > 5)
+    (can-build mining-camp)
+=>
+    (build mining-camp)
+)
+
+; Villager Designation
+
+(defrule
+    (true)
+=>
+    (set-strategic-number sn-food-gatherer-percentage 50)
+    (set-strategic-number sn-wood-gatherer-percentage 25)
+    (set-strategic-number sn-gold-gatherer-percentage 25)
+    (set-strategic-number sn-maximum-food-drop-distance 5)
+    (set-strategic-number sn-maximum-wood-drop-distance 12)
+    (set-strategic-number sn-maximum-gold-drop-distance 8)
+    (enable-timer 5 2700)
+)
+
+; Extra Resources
+
+(defrule
+    (timer-triggered 5)
+=>
+    (cc-add-resource food 1000)
+    (cc-add-resource gold 700)
+    (disable-timer 5)
+    (enable-timer 5 300)
+)
+
+; Upgrading
+
+(defrule
+    (true)
+=>
+    (set-goal military-techs 1)
+    (set-goal blacksmith-techs 1)
+    (disable-self)
+)
+
+; Dodge
+
+(defrule
+	(difficulty == easy)
+=>
+	(set-difficulty-parameter ability-to-maintain-distance 90)
+	(set-difficulty-parameter ability-to-dodge-missiles 90)
+	(disable-self)
+)
+(defrule
+	(difficulty == moderate)
+=>
+	(set-difficulty-parameter ability-to-maintain-distance 70) 
+	(set-difficulty-parameter ability-to-dodge-missiles 70)
+	(disable-self)
+)
+(defrule
+	(difficulty == hard)
+=>
+	(set-difficulty-parameter ability-to-maintain-distance 50) 
+	(set-difficulty-parameter ability-to-dodge-missiles 50)
+	(disable-self)
+)
+
+; Attack Intervals
+
+; Initial Attack
+(defrule
+    (difficulty == easy)
+    (game-time > 1000)
+=>
+	(set-strategic-number sn-group-form-distance 25)
+	(set-strategic-number sn-number-attack-groups 1)
+    (attack-now)
+    (enable-timer 1 1000)
+    (disable-self)
+)
+(defrule
+    (difficulty == moderate)
+    (game-time > 700)
+=>
+	(set-strategic-number sn-group-form-distance 25)
+	(set-strategic-number sn-number-attack-groups 1)
+    (attack-now)
+    (enable-timer 1 700)
+    (disable-self)
+)
+(defrule
+    (difficulty == hard)
+    (game-time > 400)
+=>
+	(set-strategic-number sn-group-form-distance 25)
+	(set-strategic-number sn-number-attack-groups 1)
+    (attack-now)
+    (enable-timer 1 500)
+    (disable-self)
+)
+
+; Subsequent Attacks
+(defrule
+    (difficulty == easy)
+    (timer-triggered 1)
+=>
+    (attack-now)
+    (enable-timer 1 1000)
+    (disable-self)
+)
+(defrule
+    (difficulty == moderate)
+    (timer-triggered 1)
+=>
+    (attack-now)
+    (enable-timer 1 700)
+    (disable-self)
+)
+(defrule
+    (difficulty == hard)
+    (timer-triggered 1)
+=>
+    (attack-now)
+    (enable-timer 1 500)
+    (disable-self)
+)
+
+; Army Composition
+
+; Trashbows
+(defrule
+    (difficulty == easy)
+    (unit-type-count-total archer-line < 10)
+=>
+    (train archer-line)
+)
+(defrule
+    (difficulty == moderate)
+    (unit-type-count-total archer-line < 18)
+=>
+    (train archer-line)
+)
+(defrule
+    (difficulty == hard)
+    (unit-type-count-total archer-line < 28)
+=>
+    (train archer-line)
+)
+
+; Knights
+(defrule
+    (difficulty == easy)
+    (unit-type-count-total knight-line < 7)
+=>
+    (train knight-line)
+)
+(defrule
+    (difficulty == moderate)
+    (unit-type-count-total knight-line < 14)
+=>
+    (train knight-line)
+)
+(defrule
+    (difficulty == hard)
+    (unit-type-count-total knight-line < 18)
+=>
+    (train knight-line)
+)
+
+; War Elephants
+(defrule
+    (difficulty == easy)
+    (unit-type-count-total war-elephant-line < 3)
+=>
+    (train war-elephant-line)
+)
+(defrule
+    (difficulty == moderate)
+    (unit-type-count-total war-elephant-line < 6)
+=>
+    (train war-elephant-line)
+)
+(defrule
+    (difficulty == hard)
+    (unit-type-count-total war-elephant-line < 10)
+=>
+    (train war-elephant-line)
+)
+
+; Imams
+(defrule
+    (difficulty == easy)
+    (not (event-detected trigger 8))
+    (unit-type-count-total 842 < 2)
+=>
+    (train 842)
+)
+(defrule
+    (difficulty == moderate)
+    (not (event-detected trigger 8))
+    (unit-type-count-total 842 < 3)
+=>
+    (train 842)
+)
+(defrule
+    (difficulty == hard)
+    (not (event-detected trigger 8))
+    (unit-type-count-total 842 < 4)
+=>
+    (train 842)
+)
+
+; Priests
+(defrule
+    (difficulty == easy)
+    (event-detected trigger 8)
+    (unit-type-count-total 1023 < 2)
+=>
+    (train 1023)
+)
+(defrule
+    (difficulty == moderate)
+    (event-detected trigger 8)
+    (unit-type-count-total 1023 < 3)
+=>
+    (train 1023)
+)
+(defrule
+    (difficulty == hard)
+    (event-detected trigger 8)
+    (unit-type-count-total 1023 < 4)
+=>
+    (train 1023)
+)

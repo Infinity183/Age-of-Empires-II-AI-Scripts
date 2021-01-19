@@ -1,0 +1,240 @@
+; Uthman
+
+(defrule	
+	(true)
+=>
+    (set-strategic-number sn-maximum-town-size 35)
+    (set-strategic-number sn-camp-max-distance 35)
+    (set-strategic-number sn-mill-max-distance 15)
+    (set-strategic-number sn-wall-targeting-mode 1)
+
+	(set-strategic-number sn-defense-distance 20)
+	(set-strategic-number sn-sentry-distance 20)
+	(set-strategic-number sn-percent-enemy-sighted-response 100)
+	(set-strategic-number sn-enemy-sighted-response-distance 15)
+	(set-strategic-number sn-sentry-distance 15)
+    (set-strategic-number sn-maximum-gold-drop-distance 4)
+	(set-strategic-number sn-wood-dropsite-distance 4)
+	(disable-self)
+)
+
+; Army
+
+(defrule
+	(difficulty == easy)
+    (event-detected trigger 11)
+=>
+	(set-strategic-number sn-percent-attack-soldiers 50)
+)
+
+(defrule
+	(difficulty == moderate)
+    (event-detected trigger 11)
+=>
+	(set-strategic-number sn-percent-attack-soldiers 70)
+)
+
+(defrule
+	(difficulty == hard)
+    (event-detected trigger 11)
+=>
+	(set-strategic-number sn-percent-attack-soldiers 100)
+)
+
+; Dodge
+
+(defrule
+	(difficulty == easy)
+=>
+	(set-difficulty-parameter ability-to-maintain-distance 80)
+	(set-difficulty-parameter ability-to-dodge-missiles 80)
+	(disable-self)
+)
+(defrule
+	(difficulty == moderate)
+=>
+	(set-difficulty-parameter ability-to-maintain-distance 50) 
+	(set-difficulty-parameter ability-to-dodge-missiles 50)
+	(disable-self)
+)
+(defrule
+	(difficulty == hard)
+=>
+	(set-difficulty-parameter ability-to-maintain-distance 25) 
+	(set-difficulty-parameter ability-to-dodge-missiles 25)
+	(disable-self)
+)
+
+; Attack Intervals
+
+(defrule
+    (event-detected trigger 11)
+=>
+    (enable-timer 1 600)
+)
+
+; Attacks
+(defrule
+    (difficulty == easy)
+    (timer-triggered 1)
+=>
+    (attack-now)
+    (enable-timer 1 1500)
+    (disable-self)
+)
+(defrule
+    (difficulty == moderate)
+    (timer-triggered 1)
+=>
+    (attack-now)
+    (enable-timer 1 1000)
+    (disable-self)
+)
+(defrule
+    (difficulty == hard)
+    (timer-triggered 1)
+=>
+    (attack-now)
+    (enable-timer 1 500)
+    (disable-self)
+)
+
+; Army Composition
+
+; Mamelukes
+(defrule
+    (difficulty == easy)
+    (event-detected trigger 11)
+    (unit-type-count-total mameluke-line < 10)
+=>
+    (train mameluke-line)
+)
+(defrule
+    (difficulty == moderate)
+    (event-detected trigger 11)
+    (unit-type-count-total mameluke-line < 15)
+=>
+    (train mameluke-line)
+)
+(defrule
+    (difficulty == hard)
+    (event-detected trigger 11)
+    (unit-type-count-total mameluke-line < 20)
+=>
+    (train mameluke-line)
+)
+
+; Arby's
+(defrule
+    (difficulty == easy)
+    (event-detected trigger 11)
+    (unit-type-count-total archer-line < 15)
+=>
+    (train archer-line)
+)
+(defrule
+    (difficulty == moderate)
+    (event-detected trigger 11)
+    (unit-type-count-total archer-line < 25)
+=>
+    (train archer-line)
+)
+(defrule
+    (difficulty == hard)
+    (event-detected trigger 11)
+    (unit-type-count-total archer-line < 40)
+=>
+    (train archer-line)
+)
+
+; Camel Riders
+(defrule
+    (difficulty == easy)
+    (event-detected trigger 11)
+    (unit-type-count-total camel-line < 10)
+=>
+    (train camel-line)
+)
+(defrule
+    (difficulty == moderate)
+    (not (event-detected trigger 11))
+    (unit-type-count-total camel-line < 20)
+=>
+    (train camel-line)
+)
+(defrule
+    (difficulty == hard)
+    (event-detected trigger 11)
+    (unit-type-count-total camel-line < 30)
+=>
+    (train camel-line)
+)
+
+; Ongies
+(defrule
+    (difficulty == easy)
+    (event-detected trigger 11)
+    (unit-type-count-total mangonel-line < 3)
+=>
+    (train mangonel-line)
+)
+(defrule
+    (difficulty == moderate)
+    (event-detected trigger 11)
+    (unit-type-count-total mangonel-line < 6)
+=>
+    (train mangonel-line)
+)
+(defrule
+    (difficulty == hard)
+    (event-detected trigger 11)
+    (unit-type-count-total mangonel-line < 9)
+=>
+    (train mangonel-line)
+)
+
+; Rams
+(defrule
+    (difficulty == easy)
+    (event-detected trigger 12)
+    (unit-type-count-total battering-ram-line < 4)
+=>
+    (train battering-ram-line)
+)
+(defrule
+    (difficulty == moderate)
+    (event-detected trigger 12)
+    (unit-type-count-total battering-ram-line < 8)
+=>
+    (train battering-ram-line)
+)
+(defrule
+    (difficulty == hard)
+    (event-detected trigger 12)
+    (unit-type-count-total battering-ram-line < 12)
+=>
+    (train battering-ram-line)
+)
+
+; Trebbies
+(defrule
+    (difficulty == moderate)
+    (event-detected trigger 12)
+    (unit-type-count-total trebuchet < 2)
+=>
+    (train trebuchet)
+)
+(defrule
+    (difficulty == moderate)
+    (event-detected trigger 12)
+    (unit-type-count-total trebuchet < 4)
+=>
+    (train trebuchet)
+)
+(defrule
+    (difficulty == hard)
+    (event-detected trigger 12)
+    (unit-type-count-total trebuchet < 7)
+=>
+    (train trebuchet)
+)

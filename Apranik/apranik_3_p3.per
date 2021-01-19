@@ -1,0 +1,547 @@
+; Libyans in Pakistan
+
+(defrule	
+	(true)
+=>
+    (set-strategic-number sn-maximum-town-size 35)
+    (set-strategic-number sn-camp-max-distance 35)
+    (set-strategic-number sn-mill-max-distance 35)
+    (set-strategic-number sn-wall-targeting-mode 1)
+    (set-strategic-number sn-percent-civilian-builders 15)
+    (set-strategic-number sn-percent-civilian-gatherers 85)
+
+	(set-strategic-number sn-number-explore-groups 1)
+ 	(set-strategic-number sn-total-number-explorers 1)
+
+	(set-strategic-number sn-defense-distance 20)
+	(set-strategic-number sn-sentry-distance 20)
+	(set-strategic-number sn-percent-enemy-sighted-response 100)
+	(set-strategic-number sn-enemy-sighted-response-distance 15)
+	(set-strategic-number sn-sentry-distance 15)
+    (set-strategic-number sn-maximum-gold-drop-distance 4)
+	(set-strategic-number sn-wood-dropsite-distance 4)
+	(disable-self)
+)
+
+; Upgrading
+
+(defrule
+	(true)
+=>
+	(set-escrow-percentage wood 70)
+	(set-escrow-percentage food 70)
+	(set-escrow-percentage gold 70)
+	(set-escrow-percentage stone 70)
+)
+
+; Elite Camel Archer
+(defrule
+	(game-time > 600)
+	(can-research-with-escrow ri-elite-camel-archer)
+=>
+	(release-escrow wood)
+	(release-escrow food)
+	(release-escrow gold)
+	(release-escrow stone)
+	(research ri-elite-camel-archer)
+)
+
+; Hussar
+(defrule
+	(game-time > 1000)
+	(unit-type-count-total light-cavalry > 5)
+	(can-research-with-escrow ri-hussar)
+=>
+	(release-escrow wood)
+	(release-escrow food)
+	(release-escrow gold)
+	(release-escrow stone)
+		(research ri-hussar)
+)
+
+; Heavy Camel Rider
+(defrule
+	(game-time > 1500)
+	(unit-type-count-total camel > 5)
+	(can-research-with-escrow ri-heavy-camel)
+=>
+	(release-escrow wood)
+	(release-escrow food)
+	(release-escrow gold)
+	(release-escrow stone)
+		(research ri-heavy-camel)
+)
+
+; Onager
+(defrule
+	(game-time > 2400)
+	(unit-type-count-total mangonel > 1)
+	(can-research-with-escrow ri-onager)
+=>
+	(release-escrow wood)
+	(release-escrow food)
+	(release-escrow gold)
+	(release-escrow stone)
+		(research ri-onager)
+)
+
+; Galleon
+(defrule
+    (game-time > 1600)
+    (unit-type-count-total war-galley > 4)
+    (can-research-with-escrow ri-galleon)
+=>
+    (release-escrow wood)
+    (release-escrow food)
+    (release-escrow gold)
+    (release-escrow stone)
+        (research ri-galleon)
+)
+
+; Elite Genitour
+(defrule
+    (game-time > 800)
+    (unit-type-count-total genitour > 4)
+    (can-research-with-escrow ri-elite-genitour)
+=>
+    (release-escrow wood)
+    (release-escrow food)
+    (release-escrow gold)
+    (release-escrow stone)
+        (research ri-elite-genitour)
+)
+
+; Siege Engineers
+(defrule
+    (game-time > 2000)
+    (can-research-with-escrow ri-siege-engineers)
+=>
+    (release-escrow wood)
+    (release-escrow food)
+    (release-escrow gold)
+    (release-escrow stone)
+    (research ri-siege-engineers)
+)
+
+; Chemistry
+(defrule
+    (game-time > 300)
+    (can-research-with-escrow ri-chemistry)
+=>
+    (release-escrow wood)
+    (release-escrow food)
+    (release-escrow gold)
+    (release-escrow stone)
+    (research ri-chemistry)
+)
+
+; Arrowslits
+(defrule
+    (game-time > 1100)
+    (can-research-with-escrow ri-arrowslits)
+=>
+    (release-escrow wood)
+    (release-escrow food)
+    (release-escrow gold)
+    (release-escrow stone)
+    (research ri-arrowslits)
+)
+
+; Crop Rotation
+(defrule
+    (game-time > 200)
+    (can-research-with-escrow ri-crop-rotation)
+=>
+    (release-escrow wood)
+    (release-escrow food)
+    (release-escrow gold)
+    (release-escrow stone)
+    (research ri-crop-rotation)
+)
+
+; Dry Dock
+(defrule
+    (game-time > 2500)
+    (can-research-with-escrow ri-dry-dock)
+=>
+    (release-escrow wood)
+    (release-escrow food)
+    (release-escrow gold)
+    (release-escrow stone)
+    (research ri-dry-dock)
+)
+
+; Maghrebi Camels
+(defrule
+    (game-time > 600)
+    (can-research-with-escrow ri-camel-corps)
+=>
+    (release-escrow wood)
+    (release-escrow food)
+    (release-escrow gold)
+    (release-escrow stone)
+    (research ri-camel-corps)
+)
+
+; Blast Furnace
+(defrule
+    (can-research-with-escrow ri-blast-furnace)
+=>
+    (release-escrow wood)
+    (release-escrow food)
+    (release-escrow gold)
+    (release-escrow stone)
+    (research ri-blast-furnace)
+)
+
+; Bracer
+(defrule
+    (can-research-with-escrow ri-bracer)
+=>
+    (release-escrow wood)
+    (release-escrow food)
+    (release-escrow gold)
+    (release-escrow stone)
+    (research ri-bracer)
+)
+
+; Plate Barding Armor
+(defrule
+    (can-research-with-escrow ri-plate-barding)
+=>
+    (release-escrow wood)
+    (release-escrow food)
+    (release-escrow gold)
+    (release-escrow stone)
+    (research ri-plate-barding)
+)
+
+; Ring Archer Armor
+(defrule
+    (can-research-with-escrow ri-ring-archer-armor)
+=>
+    (release-escrow wood)
+    (release-escrow food)
+    (release-escrow gold)
+    (release-escrow stone)
+    (research ri-ring-archer-armor)
+)
+
+
+; Army Size
+
+(defrule
+	(difficulty == easy)
+=>
+	(set-strategic-number sn-percent-attack-soldiers 25)
+)
+
+(defrule
+	(difficulty == moderate)
+=>
+	(set-strategic-number sn-percent-attack-soldiers 40)
+)
+
+(defrule
+	(difficulty == hard)
+=>
+	(set-strategic-number sn-percent-attack-soldiers 55)
+)
+
+; Number of Villagers
+
+(defrule
+    (unit-type-count-total villager less-than 48)
+=>
+    (train villager)
+)
+
+; Farm Maintenance
+
+(defrule
+    (idle-farm-count <= 1)
+    (building-type-count-total farm less-than 28)
+    (can-build farm)
+=>
+    (build farm)
+)
+
+; Wood
+
+(defrule
+    (resource-found wood)
+    (dropsite-min-distance wood > 5)
+    (building-type-count-total lumber-camp < 3)
+    (can-build lumber-camp)
+=>
+    (build lumber-camp)
+)
+
+; Gold
+
+(defrule
+    (resource-found gold)
+    (dropsite-min-distance gold > 6)
+    (building-type-count-total mining-camp < 2)
+    (can-build mining-camp)
+=>
+    (build mining-camp)
+)
+
+; Villager Designation
+
+(defrule
+    (true)
+=>
+    (set-strategic-number sn-food-gatherer-percentage 69)
+    (set-strategic-number sn-wood-gatherer-percentage 15)
+    (set-strategic-number sn-gold-gatherer-percentage 16)
+    (set-strategic-number sn-maximum-food-drop-distance 6)
+    (set-strategic-number sn-maximum-wood-drop-distance 12)
+    (set-strategic-number sn-maximum-gold-drop-distance 8)
+    (enable-timer 5 3000)
+)
+
+; Extra Gold
+
+(defrule
+    (timer-triggered 5)
+=>
+    (cc-add-resource gold 750)
+    (disable-timer 5)
+    (enable-timer 5 300)
+)
+
+; Upgrading
+
+(defrule
+    (true)
+=>
+    ;(set-goal military-techs 1)
+    ;(set-goal blacksmith-techs 1)
+    ;(set-goal dock-techs 1)
+    (disable-self)
+)
+
+; Dodge
+
+(defrule
+	(difficulty == easy)
+=>
+	(set-difficulty-parameter ability-to-maintain-distance 80)
+	(set-difficulty-parameter ability-to-dodge-missiles 80)
+	(disable-self)
+)
+(defrule
+	(difficulty == moderate)
+=>
+	(set-difficulty-parameter ability-to-maintain-distance 50) 
+	(set-difficulty-parameter ability-to-dodge-missiles 50)
+	(disable-self)
+)
+(defrule
+	(difficulty == hard)
+=>
+	(set-difficulty-parameter ability-to-maintain-distance 35) 
+	(set-difficulty-parameter ability-to-dodge-missiles 35)
+	(disable-self)
+)
+
+; Attack Intervals
+
+; Initial Attack
+(defrule
+    (difficulty == easy)
+    (game-time > 1500)
+=>
+	(set-strategic-number sn-group-form-distance 25)
+	(set-strategic-number sn-number-attack-groups 1)
+    (attack-now)
+    (enable-timer 1 1200)
+    (disable-self)
+)
+(defrule
+    (difficulty == moderate)
+    (game-time > 1100)
+=>
+	(set-strategic-number sn-group-form-distance 25)
+	(set-strategic-number sn-number-attack-groups 1)
+    (attack-now)
+    (enable-timer 1 926)
+    (disable-self)
+)
+(defrule
+    (difficulty == hard)
+    (game-time > 850)
+=>
+	(set-strategic-number sn-group-form-distance 25)
+	(set-strategic-number sn-number-attack-groups 1)
+    (attack-now)
+    (enable-timer 1 770)
+    (disable-self)
+)
+
+; Subsequent Attacks
+(defrule
+    (difficulty == easy)
+    (timer-triggered 1)
+    (military-population >= 12)
+=>
+    (attack-now)
+    (enable-timer 1 1200)
+    (disable-self)
+)
+(defrule
+    (difficulty == moderate)
+    (timer-triggered 1)
+    (military-population >= 24)
+=>
+    (attack-now)
+    (enable-timer 1 926)
+    (disable-self)
+)
+(defrule
+    (difficulty == hard)
+    (timer-triggered 1)
+    (military-population >= 32)
+=>
+    (attack-now)
+    (enable-timer 1 770)
+    (disable-self)
+)
+
+; Army Composition
+
+; Hussars
+(defrule
+    (difficulty == easy)
+    (unit-type-count-total scout-cavalry-line < 5)
+=>
+    (train scout-cavalry-line)
+)
+(defrule
+    (difficulty == moderate)
+    (unit-type-count-total scout-cavalry-line < 10)
+=>
+    (train scout-cavalry-line)
+)
+(defrule
+    (difficulty == hard)
+    (unit-type-count-total scout-cavalry-line < 15)
+=>
+    (train scout-cavalry-line)
+)
+
+; Genitours
+(defrule
+    (difficulty == easy)
+    (unit-type-count-total genitour-line < 8)
+=>
+    (train genitour-line)
+)
+(defrule
+    (difficulty == moderate)
+    (unit-type-count-total genitour-line < 12)
+=>
+    (train genitour-line)
+)
+(defrule
+    (difficulty == hard)
+    (unit-type-count-total genitour-line < 18)
+=>
+    (train genitour-line)
+)
+
+; Camel Riders
+(defrule
+    (difficulty == easy)
+    (unit-type-count-total camel-line < 4)
+=>
+    (train camel-line)
+)
+(defrule
+    (difficulty == moderate)
+    (unit-type-count-total camel-line < 8)
+=>
+    (train camel-line)
+)
+(defrule
+    (difficulty == hard)
+    (unit-type-count-total camel-line < 11)
+=>
+    (train camel-line)
+)
+
+; Camel Archers
+(defrule
+    (difficulty == easy)
+    (unit-type-count-total camel-archer-line < 3)
+=>
+    (train camel-archer-line)
+)
+(defrule
+    (difficulty == moderate)
+    (unit-type-count-total camel-archer-line < 7)
+=>
+    (train camel-archer-line)
+)
+(defrule
+    (difficulty == hard)
+    (unit-type-count-total camel-archer-line < 9)
+=>
+    (train camel-archer-line)
+)
+
+; Mangies
+(defrule
+    (difficulty == easy)
+    (unit-type-count-total mangonel-line < 2)
+=>
+    (train mangonel-line)
+)
+(defrule
+    (difficulty == moderate)
+    (unit-type-count-total mangonel-line < 3)
+=>
+    (train mangonel-line)
+)
+(defrule
+    (difficulty == hard)
+    (unit-type-count-total mangonel-line < 5)
+=>
+    (train mangonel-line)
+)
+
+; Boats
+(defrule
+    (difficulty == easy)
+    (unit-type-count-total galley-line < 5)
+=>
+    (train galley-line)
+)
+(defrule
+    (difficulty == moderate)
+    (unit-type-count-total galley-line < 8)
+=>
+    (train galley-line)
+)
+(defrule
+    (difficulty == hard)
+    (unit-type-count-total galley-line < 11)
+=>
+    (train galley-line)
+)
+
+; Trebbies
+(defrule
+    (difficulty == moderate)
+    (unit-type-count-total trebuchet < 2)
+=>
+    (train trebuchet)
+)
+(defrule
+    (difficulty == hard)
+    (unit-type-count-total trebuchet < 3)
+=>
+    (train trebuchet)
+)
