@@ -22,21 +22,18 @@
 
 (defrule
 	(difficulty == easy)
-    (event-detected trigger 11)
 =>
 	(set-strategic-number sn-percent-attack-soldiers 50)
 )
 
 (defrule
 	(difficulty == moderate)
-    (event-detected trigger 11)
 =>
 	(set-strategic-number sn-percent-attack-soldiers 70)
 )
 
 (defrule
 	(difficulty == hard)
-    (event-detected trigger 11)
 =>
 	(set-strategic-number sn-percent-attack-soldiers 100)
 )
@@ -68,9 +65,10 @@
 ; Attack Intervals
 
 (defrule
-    (event-detected trigger 11)
+    (true)
 =>
     (enable-timer 1 600)
+    (disable-self)
 )
 
 ; Attacks
@@ -104,21 +102,18 @@
 ; Mamelukes
 (defrule
     (difficulty == easy)
-    (event-detected trigger 11)
     (unit-type-count-total mameluke-line < 10)
 =>
     (train mameluke-line)
 )
 (defrule
     (difficulty == moderate)
-    (event-detected trigger 11)
     (unit-type-count-total mameluke-line < 15)
 =>
     (train mameluke-line)
 )
 (defrule
     (difficulty == hard)
-    (event-detected trigger 11)
     (unit-type-count-total mameluke-line < 20)
 =>
     (train mameluke-line)
@@ -127,21 +122,18 @@
 ; Arby's
 (defrule
     (difficulty == easy)
-    (event-detected trigger 11)
     (unit-type-count-total archer-line < 15)
 =>
     (train archer-line)
 )
 (defrule
     (difficulty == moderate)
-    (event-detected trigger 11)
     (unit-type-count-total archer-line < 25)
 =>
     (train archer-line)
 )
 (defrule
     (difficulty == hard)
-    (event-detected trigger 11)
     (unit-type-count-total archer-line < 40)
 =>
     (train archer-line)
@@ -150,21 +142,18 @@
 ; Camel Riders
 (defrule
     (difficulty == easy)
-    (event-detected trigger 11)
     (unit-type-count-total camel-line < 10)
 =>
     (train camel-line)
 )
 (defrule
     (difficulty == moderate)
-    (not (event-detected trigger 11))
     (unit-type-count-total camel-line < 20)
 =>
     (train camel-line)
 )
 (defrule
     (difficulty == hard)
-    (event-detected trigger 11)
     (unit-type-count-total camel-line < 30)
 =>
     (train camel-line)
@@ -173,21 +162,18 @@
 ; Ongies
 (defrule
     (difficulty == easy)
-    (event-detected trigger 11)
     (unit-type-count-total mangonel-line < 3)
 =>
     (train mangonel-line)
 )
 (defrule
     (difficulty == moderate)
-    (event-detected trigger 11)
     (unit-type-count-total mangonel-line < 6)
 =>
     (train mangonel-line)
 )
 (defrule
     (difficulty == hard)
-    (event-detected trigger 11)
     (unit-type-count-total mangonel-line < 9)
 =>
     (train mangonel-line)
