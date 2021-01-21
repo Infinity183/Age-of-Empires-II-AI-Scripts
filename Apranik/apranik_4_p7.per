@@ -3,12 +3,39 @@
 (defrule	
 	(true)
 =>
-    (set-strategic-number sn-maximum-town-size 20)
-    (set-strategic-number sn-mill-max-distance 15)
+    (set-strategic-number sn-maximum-town-size 32)
+    (set-strategic-number sn-camp-max-distance 35)
+    (set-strategic-number sn-mill-max-distance 35)
     (set-strategic-number sn-percent-civilian-gatherers 100)
     (set-strategic-number sn-number-explore-groups 0)
  	(set-strategic-number sn-total-number-explorers 0)
 )
+
+; Farm Rules
+
+(defconst min-farms			161)
+(defconst farming-level			191)
+(defconst g-temp 			143)
+(defconst gl-temp			144)
+(defconst gl-temp2			145)
+(defconst gl-temp3			146)
+(defconst gl-temp4			147)
+(defconst gl-temp5			148)
+(defconst gl-temp6			149)
+(defconst gl-cost-food 			160)
+(defconst gl-cost-wood 			161)
+(defconst gl-cost-stone 		162)
+(defconst gl-cost-gold 			163)
+(defconst object-data-under-attack 	35)
+(defconst gl-local-total		130)
+(defconst gl-point-x			100)
+(defconst gl-point-x2			103)
+(defconst gl-point-y2			104)
+(defconst minimum-dark-age-wood-for-farm 90)
+(defconst gl-escrow-state 		164)
+
+
+
 ; Villager Designation
 
 (defrule
@@ -16,21 +43,120 @@
 =>
     (set-strategic-number sn-food-gatherer-percentage 71)
     (set-strategic-number sn-wood-gatherer-percentage 29)
+    (set-strategic-number sn-gold-gatherer-percentage  0)
+	(set-strategic-number sn-stone-gatherer-percentage 0)
     (set-strategic-number sn-maximum-food-drop-distance 21)
     (set-strategic-number sn-maximum-wood-drop-distance 15)
     (set-strategic-number sn-maximum-gold-drop-distance 0)
     (set-strategic-number sn-maximum-stone-drop-distance 0)
+    (set-strategic-number sn-max-retask-gather-amount 0)
+	(set-strategic-number sn-retask-gather-amount 0)
+
 )
 
 ; Farm Maintenance
 
+;GENERAL RULES
+
 (defrule
-    (idle-farm-count <= 1)
-    (building-type-count-total farm less-than 50)
-    (can-build farm)
+	(or	(and	(building-type-count-total farm s:< min-farms)
+			(up-pending-objects c: farm c:< 4))
+		(idle-farm-count s:< farming-level))
+	(not(up-pending-placement c: farm))
+	(wood-amount >= 40)
+	(or	(civ-selected teutonic)
+		(wood-amount >= 60))
 =>
-    (build farm)
-)
+	(up-jump-rule 1))
+
+(defrule
+	(true)
+=>
+	(up-jump-rule 14))
+	
+
+
+;ONLY PLACE MILLS AT FARMS
+
+(defrule
+	(building-type-count mill > 0)
+	=>
+	(up-full-reset-search)
+	(set-strategic-number sn-focus-player-number my-player-number)
+	(up-get-fact building-type-count mill gl-temp3)
+	(up-modify-goal gl-temp3 c:min 8)
+	(set-goal gl-temp4 0)
+	(set-goal gl-temp5 -1)
+	)
+
+(defrule
+	(true)
+	=>
+	(up-modify-goal gl-temp4 c:+ 1)
+	(up-modify-goal gl-temp5 c:+ 1)
+	)
+
+(defrule
+	(building-type-count mill > 0)
+	=>
+	(up-reset-search 1 0 1 1)
+	(up-find-local c: mill g: gl-temp3)
+	(up-set-target-object search-local g: gl-temp5)
+	(up-get-point position-object gl-point-x)
+	(up-bound-point gl-point-x2 gl-point-x)
+	(up-modify-goal gl-point-x2 c:+ 2)
+	(up-build-line gl-point-x2 gl-point-x2 c: farm)
+	(up-bound-point gl-point-x2 gl-point-x)
+	(up-modify-goal gl-point-x2 c:- 1)
+	(up-modify-goal gl-point-y2 c:+ 2)
+	(up-build-line gl-point-x2 gl-point-x2 c: farm)
+	(up-bound-point gl-point-x2 gl-point-x)
+	(up-modify-goal gl-point-x2 c:- 3)
+	(up-modify-goal gl-point-y2 c:- 1)
+	(up-build-line gl-point-x2 gl-point-x2 c: farm)
+	)
+
+(defrule
+	(building-type-count town-center > 0)
+	=>
+	(up-bound-point gl-point-x2 gl-point-x)
+	(up-modify-goal gl-point-y2 c:- 3)
+	(up-build-line gl-point-x2 gl-point-x2 c: farm)
+	(up-bound-point gl-point-x2 gl-point-x)
+	(up-modify-goal gl-point-x2 c:+ 2)
+	(up-modify-goal gl-point-y2 c:+ 3)
+	(up-build-line gl-point-x2 gl-point-x2 c: farm)
+	(up-bound-point gl-point-x2 gl-point-x)
+	(up-modify-goal gl-point-x2 c:- 4)
+	(up-modify-goal gl-point-y2 c:+ 2)
+	(up-build-line gl-point-x2 gl-point-x2 c: farm)
+	(up-bound-point gl-point-x2 gl-point-x)
+	(up-modify-goal gl-point-x2 c:- 3)
+	(up-modify-goal gl-point-y2 c:- 4)
+	(up-build-line gl-point-x2 gl-point-x2 c: farm)
+	)
+
+(defrule
+	(building-type-count town-center > 0)
+	=>
+	(up-bound-point gl-point-x2 gl-point-x)
+	(up-modify-goal gl-point-x2 c:+ 3)
+	(up-modify-goal gl-point-y2 c:- 3)
+	(up-build-line gl-point-x2 gl-point-x2 c: farm)
+	)
+
+(defrule
+	(unit-type-count mill g:>= gl-temp3)
+	(up-compare-goal gl-temp4 < 8)
+	=>
+	(up-jump-rule -5)
+	)
+
+(defrule
+	(true)
+	=>
+	(up-modify-escrow wood g:= gl-temp)
+	)
 
 ; Tributes
 
