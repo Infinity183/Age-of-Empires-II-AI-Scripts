@@ -64,10 +64,33 @@
 
 ; Attack Intervals
 
+; Initial Attacks
+
+; Easy
 (defrule
-    (true)
+    (difficulty == easy)
+    (game-time > 3600)
 =>
-    (enable-timer 1 600)
+    (attack-now)
+    (enable-timer 1 1500)
+    (disable-self)
+)
+; Moderate
+(defrule
+    (difficulty == easy)
+    (game-time > 3000)
+=>
+    (attack-now)
+    (enable-timer 1 1000)
+    (disable-self)
+)
+; Hard
+(defrule
+    (difficulty == easy)
+    (game-time > 2300)
+=>
+    (attack-now)
+    (enable-timer 1 500)
     (disable-self)
 )
 
