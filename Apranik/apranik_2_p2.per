@@ -9,7 +9,7 @@
 	(set-strategic-number sn-enemy-sighted-response-distance 6)
 	(set-strategic-number sn-sentry-distance 5)
 	(set-strategic-number sn-percent-attack-soldiers 100)
-	(set-strategic-number sn-group-form-distance 100)
+	(set-strategic-number sn-group-form-distance 30)
 	(set-strategic-number sn-number-attack-groups 3)
 	(disable-self)
 )
@@ -44,7 +44,7 @@
 	(event-detected trigger 5)
 =>
 	(attack-now)
-    (enable-timer 1 150)
+    (enable-timer 1 40)
 	(disable-self)
 )
 
@@ -54,6 +54,6 @@
     (timer-triggered 1)
 =>
     (attack-now)
-    (enable-timer 1 150)
+    (enable-timer 1 40)
     (disable-self)
 )
