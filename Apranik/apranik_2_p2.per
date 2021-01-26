@@ -4,13 +4,15 @@
 	(true)
 =>
 	(set-strategic-number sn-defense-distance 10)
-	(set-strategic-number sn-sentry-distance 10)
+	(set-strategic-number sn-number-explore-groups 0)
+ 	(set-strategic-number sn-total-number-explorers 0)
 	(set-strategic-number sn-percent-enemy-sighted-response 100)
-	(set-strategic-number sn-enemy-sighted-response-distance 6)
-	(set-strategic-number sn-sentry-distance 5)
-	(set-strategic-number sn-percent-attack-soldiers 100)
+	(set-strategic-number sn-enemy-sighted-response-distance 10)
+	(set-strategic-number sn-sentry-distance 15)
+	(set-strategic-number sn-percent-attack-soldiers 0)
+	(set-strategic-number sn-task-ungrouped-soldiers 0)
 	(set-strategic-number sn-group-form-distance 30)
-	(set-strategic-number sn-number-attack-groups 3)
+	(set-strategic-number sn-number-attack-groups 0)
 	(disable-self)
 )
 
@@ -43,6 +45,12 @@
 (defrule
 	(event-detected trigger 5)
 =>
+	(set-strategic-number sn-percent-enemy-sighted-response 100)
+	(set-strategic-number sn-enemy-sighted-response-distance 20)
+	(set-strategic-number sn-sentry-distance 15)
+	(set-strategic-number sn-percent-attack-soldiers 100)
+	(set-strategic-number sn-group-form-distance 30)
+	(set-strategic-number sn-number-attack-groups 3)
 	(attack-now)
     (enable-timer 1 40)
 	(disable-self)
