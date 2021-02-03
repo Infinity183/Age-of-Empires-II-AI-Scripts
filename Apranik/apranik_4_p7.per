@@ -1,18 +1,5 @@
 ; Arab Resource Camps
 
-(defrule	
-	(true)
-=>
-    (set-strategic-number sn-maximum-town-size 32)
-    (set-strategic-number sn-camp-max-distance 35)
-    (set-strategic-number sn-mill-max-distance 35)
-    (set-strategic-number sn-percent-civilian-gatherers 100)
-    (set-strategic-number sn-number-explore-groups 0)
- 	(set-strategic-number sn-total-number-explorers 0)
-)
-
-; Farm Rules
-
 (defconst min-farms			161)
 (defconst farming-level			191)
 (defconst g-temp 			143)
@@ -36,25 +23,172 @@
 
 
 
-; Villager Designation
+; ============== GROUPS - most of these will work for any file
 
 (defrule
-    (true)
+	(true)
 =>
-    (set-strategic-number sn-food-gatherer-percentage 71)
-    (set-strategic-number sn-wood-gatherer-percentage 29)
-    (set-strategic-number sn-gold-gatherer-percentage  0)
-	(set-strategic-number sn-stone-gatherer-percentage 0)
-    (set-strategic-number sn-maximum-food-drop-distance 21)
-    (set-strategic-number sn-maximum-wood-drop-distance 15)
-    (set-strategic-number sn-maximum-gold-drop-distance 0)
-    (set-strategic-number sn-maximum-stone-drop-distance 0)
-    (set-strategic-number sn-max-retask-gather-amount 0)
-	(set-strategic-number sn-retask-gather-amount 0)
-
+	(set-strategic-number sn-maximum-town-size 32)
+        (set-strategic-number sn-camp-max-distance 35)
+        (set-strategic-number sn-mill-max-distance 35)
+	(set-strategic-number sn-percent-enemy-sighted-response 100)
+	(set-strategic-number sn-enemy-sighted-response-distance 25)
+	(set-strategic-number sn-blot-exploration-map 1)
+	(set-strategic-number sn-number-explore-groups 1)
+	(disable-self)
 )
 
-; Farm Maintenance
+; ============== VILLAGER ASSIGNMENT ACTIVE
+
+(defrule
+	(true)
+=>
+	(set-strategic-number sn-percent-civilian-explorers 0)
+	(set-strategic-number sn-percent-civilian-builders 5)
+	(set-strategic-number sn-percent-civilian-gatherers 95)
+	(set-strategic-number sn-cap-civilian-explorers 0)
+	(set-strategic-number sn-cap-civilian-gatherers 100)
+	(set-strategic-number sn-food-gatherer-percentage  100)
+	(set-strategic-number sn-gold-gatherer-percentage  0)
+	(set-strategic-number sn-stone-gatherer-percentage 0)
+	(set-strategic-number sn-wood-gatherer-percentage  30)
+	(set-strategic-number sn-maximum-gold-drop-distance 0)
+	(set-strategic-number sn-maximum-stone-drop-distance 0)
+	(set-strategic-number sn-maximum-food-drop-distance 20)
+	(set-strategic-number sn-maximum-wood-drop-distance 0)
+	(set-strategic-number sn-max-retask-gather-amount 0)
+	(set-strategic-number sn-retask-gather-amount 0)
+	(disable-self)
+)
+
+;TRAIN VILLAGERS
+(defrule
+	(difficulty == hard)
+	(unit-type-count-total villager less-than 50)
+	(can-train villager)
+=>
+	(train villager)
+	(chat-local-to-self "villager")
+)
+
+(defrule
+
+	(difficulty == moderate)
+	(unit-type-count-total villager less-than 40)
+	(can-train villager)
+=>
+	(train villager)
+	(chat-local-to-self "villager")
+)
+
+(defrule
+	(difficulty == normal)
+	(unit-type-count-total villager less-than 28)
+	(can-train villager)
+=>
+	(train villager)
+	(chat-local-to-self "villager")
+)
+
+
+;================CHEAT======================
+
+;***Cheats***
+
+
+(defrule
+(true)
+=>
+	(enable-timer 2 0)
+	(enable-timer 3 0)
+	(disable-self)
+)
+
+;FOOD
+
+(defrule
+	(timer-triggered 2)
+	(difficulty == easy)
+	(food-amount < 800)
+=>
+	(cc-add-resource food 60)
+	(disable-timer 2)
+	(enable-timer 2 60)
+)
+
+(defrule
+	(timer-triggered 2)
+	(difficulty == moderate)
+	(food-amount < 800)
+=>
+	(cc-add-resource food 112)
+	(disable-timer 2)
+	(enable-timer 2 60)
+)
+
+(defrule
+	(timer-triggered 2)
+	(difficulty == hard)
+	(food-amount < 900)
+=>
+	(cc-add-resource food 112)
+	(disable-timer 2)
+	(enable-timer 2 60)
+)
+
+;WOOD
+
+(defrule
+	(timer-triggered 3)
+	(difficulty == easy)
+	(wood-amount < 500)
+=>
+	(cc-add-resource wood 60)
+	(disable-timer 3)
+	(enable-timer 3 60)
+)
+
+(defrule
+	(timer-triggered 3)
+	(difficulty == moderate)
+	(wood-amount < 700)
+=>
+	(cc-add-resource wood 90)
+	(disable-timer 3)
+	(enable-timer 3 60)
+)
+
+(defrule
+	(timer-triggered 3)
+	(difficulty == hard)
+	(wood-amount < 900)
+=>
+	(cc-add-resource wood 110)
+	(disable-timer 3)
+	(enable-timer 3 60)
+)
+
+
+
+;military
+
+(defrule
+	(true)
+=>
+	(set-strategic-number sn-percent-enemy-sighted-response 100)
+	(set-strategic-number sn-hits-before-alliance-change 25)
+	(set-strategic-number sn-number-explore-groups 0)
+	(set-strategic-number sn-percent-attack-soldiers 0)
+	(set-strategic-number sn-task-ungrouped-soldiers 0)
+	(set-strategic-number sn-number-attack-groups 0)
+	(set-strategic-number sn-enemy-sighted-response-distance 10)
+	(set-strategic-number sn-total-number-explorers 0)
+	(set-strategic-number sn-relic-return-distance 0)
+	(set-strategic-number sn-consecutive-idle-unit-limit 0)
+	(disable-self)
+)
+
+;***BUILD FARMS***
 
 ;GENERAL RULES
 
@@ -158,6 +292,7 @@
 	(up-modify-escrow wood g:= gl-temp)
 	)
 
+
 ; Tributes
 
 (defrule
@@ -165,7 +300,6 @@
 =>
     (enable-timer 1 150)
     (enable-timer 2 150)
-    (enable-timer 5 700)
     (disable-self)
 )
 
@@ -194,9 +328,9 @@
 ; Extra Resources
 
 (defrule
-    (timer-triggered 5)
+	(wood-amount < 200)
 =>
     (cc-add-resource wood 1000)
-    (disable-timer 5)
-    (enable-timer 5 60)
 )
+
+
