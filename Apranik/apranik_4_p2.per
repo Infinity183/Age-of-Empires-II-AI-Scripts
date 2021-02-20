@@ -1,0 +1,396 @@
+; Axum
+
+(defrule	
+	(true)
+=>
+    (set-strategic-number sn-maximum-town-size 30)
+    (set-strategic-number sn-wall-targeting-mode 1)
+
+	(set-strategic-number sn-number-explore-groups 1)
+ 	(set-strategic-number sn-total-number-explorers 1)
+
+	(set-strategic-number sn-defense-distance 20)
+	(set-strategic-number sn-sentry-distance 20)
+	(set-strategic-number sn-percent-enemy-sighted-response 100)
+	(set-strategic-number sn-enemy-sighted-response-distance 15)
+	(set-strategic-number sn-sentry-distance 15)
+	(disable-self)
+)
+
+(defconst military-techs 4)
+(defconst blacksmith-techs 6)
+
+; Upgrading
+
+(defrule
+	(true)
+=>
+	(set-escrow-percentage wood 90)
+	(set-escrow-percentage food 90)
+	(set-escrow-percentage gold 90)
+	(set-escrow-percentage stone 90)
+)
+
+; Chemistry
+(defrule
+    (game-time > 300)
+    (can-research-with-escrow ri-chemistry)
+=>
+    (release-escrow wood)
+    (release-escrow food)
+    (release-escrow gold)
+    (release-escrow stone)
+    (research ri-chemistry)
+)
+
+; Blast Furnace
+(defrule
+    (game-time > 1500)
+    (can-research-with-escrow ri-blast-furnace)
+=>
+    (release-escrow wood)
+    (release-escrow food)
+    (release-escrow gold)
+    (release-escrow stone)
+    (research ri-blast-furnace)
+)
+
+; Bracer
+(defrule
+    (game-time > 1200)
+    (can-research-with-escrow ri-bracer)
+=>
+    (release-escrow wood)
+    (release-escrow food)
+    (release-escrow gold)
+    (release-escrow stone)
+    (research ri-bracer)
+)
+
+; Plate Mail Armor
+(defrule
+    (can-research-with-escrow ri-plate-mail)
+=>
+    (release-escrow wood)
+    (release-escrow food)
+    (release-escrow gold)
+    (release-escrow stone)
+    (research ri-plate-mail)
+)
+
+; Onager
+(defrule
+    (can-research-with-escrow ri-onager)
+=>
+    (release-escrow wood)
+    (release-escrow food)
+    (release-escrow gold)
+    (release-escrow stone)
+    (research ri-onager)
+)
+
+; Siege Onager
+(defrule
+    (can-research-with-escrow ri-siege-onager)
+=>
+    (release-escrow wood)
+    (release-escrow food)
+    (release-escrow gold)
+    (release-escrow stone)
+    (research ri-siege-onager)
+)
+
+; Torsion
+(defrule
+    (can-research-with-escrow ri-torsion)
+=>
+    (release-escrow wood)
+    (release-escrow food)
+    (release-escrow gold)
+    (release-escrow stone)
+    (research ri-torsion)
+)
+
+; Architecture
+(defrule
+    (can-research-with-escrow ri-architecture)
+=>
+    (release-escrow wood)
+    (release-escrow food)
+    (release-escrow gold)
+    (release-escrow stone)
+    (research ri-architecture)
+)
+
+; Siege Engineers
+(defrule
+    (can-research-with-escrow ri-siege-engineers)
+=>
+    (release-escrow wood)
+    (release-escrow food)
+    (release-escrow gold)
+    (release-escrow stone)
+    (research ri-siege-engineers)
+)
+
+; Capped Ram
+(defrule
+    (can-research-with-escrow ri-capped-ram)
+=>
+    (release-escrow wood)
+    (release-escrow food)
+    (release-escrow gold)
+    (release-escrow stone)
+    (research ri-capped-ram)
+)
+
+; Siege Ram
+(defrule
+    (can-research-with-escrow ri-siege-ram)
+=>
+    (release-escrow wood)
+    (release-escrow food)
+    (release-escrow gold)
+    (release-escrow stone)
+    (research ri-siege-ram)
+)
+
+; Elite Show and Tell
+(defrule
+    (can-research-with-escrow ri-elite-shotel-warrior)
+=>
+    (release-escrow wood)
+    (release-escrow food)
+    (release-escrow gold)
+    (release-escrow stone)
+    (research ri-elite-shotel-warrior)
+)
+
+; Elite Camel Archers
+(defrule
+    (can-research-with-escrow ri-elite-camel-archer)
+=>
+    (release-escrow wood)
+    (release-escrow food)
+    (release-escrow gold)
+    (release-escrow stone)
+    (research ri-elite-camel-archer)
+)
+
+
+; Army Size
+
+(defrule
+	(difficulty == easy)
+=>
+	(set-strategic-number sn-percent-attack-soldiers 10)
+)
+
+(defrule
+	(difficulty == moderate)
+=>
+	(set-strategic-number sn-percent-attack-soldiers 15)
+)
+
+(defrule
+	(difficulty == hard)
+=>
+	(set-strategic-number sn-percent-attack-soldiers 20)
+)
+
+; Upgrading
+
+(defrule
+    (true)
+=>
+    (set-goal military-techs 1)
+    (set-goal blacksmith-techs 1)
+    (set-goal university-techs 1)
+    (disable-self)
+)
+
+; Dodge
+
+(defrule
+	(difficulty == easy)
+=>
+	(set-difficulty-parameter ability-to-maintain-distance 90)
+	(set-difficulty-parameter ability-to-dodge-missiles 90)
+	(disable-self)
+)
+(defrule
+	(difficulty == moderate)
+=>
+	(set-difficulty-parameter ability-to-maintain-distance 70) 
+	(set-difficulty-parameter ability-to-dodge-missiles 70)
+	(disable-self)
+)
+(defrule
+	(difficulty == hard)
+=>
+	(set-difficulty-parameter ability-to-maintain-distance 50) 
+	(set-difficulty-parameter ability-to-dodge-missiles 50)
+	(disable-self)
+)
+
+; Attack Intervals
+
+; Initial Attack
+(defrule
+    (difficulty == easy)
+    (event-detected trigger 15)
+=>
+	(set-strategic-number sn-group-form-distance 25)
+	(set-strategic-number sn-number-attack-groups 1)
+    (attack-now)
+    (enable-timer 1 1000)
+    (disable-self)
+)
+(defrule
+    (difficulty == moderate)
+    (event-detected trigger 15)
+=>
+	(set-strategic-number sn-group-form-distance 25)
+	(set-strategic-number sn-number-attack-groups 1)
+    (attack-now)
+    (enable-timer 1 700)
+    (disable-self)
+)
+(defrule
+    (difficulty == hard)
+    (event-detected trigger 15)
+=>
+	(set-strategic-number sn-group-form-distance 25)
+	(set-strategic-number sn-number-attack-groups 1)
+    (attack-now)
+    (enable-timer 1 500)
+    (disable-self)
+)
+
+; Subsequent Attacks
+(defrule
+    (difficulty == easy)
+    (timer-triggered 1)
+=>
+    (attack-now)
+    (enable-timer 1 1100)
+    (disable-self)
+)
+(defrule
+    (difficulty == moderate)
+    (timer-triggered 1)
+=>
+    (attack-now)
+    (enable-timer 1 800)
+    (disable-self)
+)
+(defrule
+    (difficulty == hard)
+    (timer-triggered 1)
+=>
+    (attack-now)
+    (enable-timer 1 600)
+    (disable-self)
+)
+
+; Army Composition
+
+; Aksumite Swordsmen
+(defrule
+    (difficulty == easy)
+    (unit-type-count-total 1109 < 8)
+=>
+    (train 1109)
+)
+(defrule
+    (difficulty == moderate)
+    (unit-type-count-total 1109 < 14)
+=>
+    (train 1109)
+)
+(defrule
+    (difficulty == hard)
+    (unit-type-count-total 1109 < 22)
+=>
+    (train 1109)
+)
+
+; Show and Tell
+(defrule
+    (difficulty == easy)
+    (unit-type-count-total shotel-warrior-line < 7)
+=>
+    (train shotel-warrior-line)
+)
+(defrule
+    (difficulty == moderate)
+    (unit-type-count-total shotel-warrior-line < 12)
+=>
+    (train shotel-warrior-line)
+)
+(defrule
+    (difficulty == hard)
+    (unit-type-count-total shotel-warrior-line < 20)
+=>
+    (train shotel-warrior-line)
+)
+
+; Camel Archers
+(defrule
+    (difficulty == easy)
+    (unit-type-count-total camel-archer-line < 5)
+=>
+    (train camel-archer-line)
+)
+(defrule
+    (difficulty == moderate)
+    (unit-type-count-total camel-archer-line < 11)
+=>
+    (train camel-archer-line)
+)
+(defrule
+    (difficulty == hard)
+    (unit-type-count-total camel-archer-line < 16)
+=>
+    (train camel-archer-line)
+)
+
+; Onagers
+(defrule
+    (difficulty == easy)
+    (unit-type-count-total mangonel-line < 2)
+=>
+    (train mangonel-line)
+)
+(defrule
+    (difficulty == moderate)
+    (unit-type-count-total mangonel-line < 4)
+=>
+    (train mangonel-line)
+)
+(defrule
+    (difficulty == hard)
+    (unit-type-count-total mangonel-line < 7)
+=>
+    (train mangonel-line)
+)
+
+; Rams
+(defrule
+    (difficulty == easy)
+    (unit-type-count-total battering-ram-line < 3)
+=>
+    (train battering-ram-line)
+)
+(defrule
+    (difficulty == moderate)
+    (unit-type-count-total battering-ram-line < 5)
+=>
+    (train battering-ram-line)
+)
+(defrule
+    (difficulty == hard)
+    (unit-type-count-total battering-ram-line < 8)
+=>
+    (train battering-ram-line)
+)
