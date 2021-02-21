@@ -1,9 +1,9 @@
-; Axum
+; Makuria
 
 (defrule	
 	(true)
 =>
-    (set-strategic-number sn-maximum-town-size 30)
+    (set-strategic-number sn-maximum-town-size 15)
     (set-strategic-number sn-wall-targeting-mode 1)
 
 	(set-strategic-number sn-number-explore-groups 1)
@@ -14,12 +14,15 @@
 	(set-strategic-number sn-percent-enemy-sighted-response 100)
 	(set-strategic-number sn-enemy-sighted-response-distance 15)
 	(set-strategic-number sn-sentry-distance 15)
+
 	(disable-self)
 )
 
 (defconst military-techs 4)
 (defconst blacksmith-techs 6)
 (defconst university-techs 8)
+(defconst end-imperial 3)
+(defconst end-age 12)
 
 ; Upgrading
 
@@ -30,11 +33,11 @@
 	(set-escrow-percentage food 90)
 	(set-escrow-percentage gold 90)
 	(set-escrow-percentage stone 90)
+    (set-goal end-age end-imperial)
 )
 
 ; Chemistry
 (defrule
-    (game-time > 300)
     (can-research-with-escrow ri-chemistry)
 =>
     (release-escrow wood)
@@ -44,9 +47,20 @@
     (research ri-chemistry)
 )
 
+; Iron Casting
+(defrule
+    (game-time > 600)
+    (can-research-with-escrow ri-iron-casting)
+=>
+    (release-escrow wood)
+    (release-escrow food)
+    (release-escrow gold)
+    (release-escrow stone)
+    (research ri-iron-casting)
+)
+
 ; Blast Furnace
 (defrule
-    (game-time > 1500)
     (can-research-with-escrow ri-blast-furnace)
 =>
     (release-escrow wood)
@@ -56,9 +70,20 @@
     (research ri-blast-furnace)
 )
 
+; Bodkin Arrow
+(defrule
+    (game-time > 300)
+    (can-research-with-escrow ri-bodkin-arrow)
+=>
+    (release-escrow wood)
+    (release-escrow food)
+    (release-escrow gold)
+    (release-escrow stone)
+    (research ri-bodkin-arrow)
+)
+
 ; Bracer
 (defrule
-    (game-time > 1200)
     (can-research-with-escrow ri-bracer)
 =>
     (release-escrow wood)
@@ -66,6 +91,17 @@
     (release-escrow gold)
     (release-escrow stone)
     (research ri-bracer)
+)
+
+; Chain Mail Armor
+(defrule
+    (can-research-with-escrow ri-chain-mail)
+=>
+    (release-escrow wood)
+    (release-escrow food)
+    (release-escrow gold)
+    (release-escrow stone)
+    (research ri-chain-mail)
 )
 
 ; Plate Mail Armor
@@ -79,59 +115,48 @@
     (research ri-plate-mail)
 )
 
-; Onager
+; Leather Archer Armor
 (defrule
-    (can-research-with-escrow ri-onager)
+    (can-research-with-escrow ri-leather-archer-armor)
 =>
     (release-escrow wood)
     (release-escrow food)
     (release-escrow gold)
     (release-escrow stone)
-    (research ri-onager)
+    (research ri-leather-archer-armor)
 )
 
-; Siege Onager
+; Ring Archer Armor
 (defrule
-    (can-research-with-escrow ri-siege-onager)
+    (can-research-with-escrow ri-ring-archer-armor)
 =>
     (release-escrow wood)
     (release-escrow food)
     (release-escrow gold)
     (release-escrow stone)
-    (research ri-siege-onager)
+    (research ri-ring-archer-armor)
 )
 
-; Torsion
+; Elite Gbetos
 (defrule
-    (can-research-with-escrow ri-torsion)
+    (can-research-with-escrow ri-elite-gbeto)
 =>
     (release-escrow wood)
     (release-escrow food)
     (release-escrow gold)
     (release-escrow stone)
-    (research ri-torsion)
+    (research ri-elite-gbeto)
 )
 
-; Architecture
+; Elite African Elephant Archers
 (defrule
-    (can-research-with-escrow ri-architecture)
+    (can-research-with-escrow ri-elite-elephant-archer)
 =>
     (release-escrow wood)
     (release-escrow food)
     (release-escrow gold)
     (release-escrow stone)
-    (research ri-architecture)
-)
-
-; Siege Engineers
-(defrule
-    (can-research-with-escrow ri-siege-engineers)
-=>
-    (release-escrow wood)
-    (release-escrow food)
-    (release-escrow gold)
-    (release-escrow stone)
-    (research ri-siege-engineers)
+    (research ri-elite-elephant-archer)
 )
 
 ; Capped Ram
@@ -239,7 +264,7 @@
 ; Initial Attack
 (defrule
     (difficulty == easy)
-    (event-detected trigger 15)
+    (game-time > 1800)
 =>
 	(set-strategic-number sn-group-form-distance 25)
 	(set-strategic-number sn-number-attack-groups 1)
@@ -249,22 +274,22 @@
 )
 (defrule
     (difficulty == moderate)
-    (event-detected trigger 15)
+    (game-time > 1200)
 =>
 	(set-strategic-number sn-group-form-distance 25)
-	(set-strategic-number sn-number-attack-groups 1)
+	(set-strategic-number sn-number-attack-groups 2)
     (attack-now)
-    (enable-timer 1 700)
+    (enable-timer 1 800)
     (disable-self)
 )
 (defrule
     (difficulty == hard)
-    (event-detected trigger 15)
+    (game-time > 600)
 =>
 	(set-strategic-number sn-group-form-distance 25)
-	(set-strategic-number sn-number-attack-groups 1)
+	(set-strategic-number sn-number-attack-groups 2)
     (attack-now)
-    (enable-timer 1 500)
+    (enable-timer 1 400)
     (disable-self)
 )
 
@@ -274,7 +299,7 @@
     (timer-triggered 1)
 =>
     (attack-now)
-    (enable-timer 1 1100)
+    (enable-timer 1 1000)
     (disable-self)
 )
 (defrule
@@ -290,54 +315,48 @@
     (timer-triggered 1)
 =>
     (attack-now)
-    (enable-timer 1 600)
+    (enable-timer 1 400)
     (disable-self)
 )
 
 ; Army Composition
 
-; Aksumite Swordsmen
+; African Elephant Archers
 (defrule
     (difficulty == easy)
-    (event-detected trigger 14)
-    (unit-type-count-total 1109 < 8)
+    (unit-type-count-total 1106 < 5)
 =>
-    (train 1109)
+    (train 1106)
 )
 (defrule
     (difficulty == moderate)
-    (event-detected trigger 14)
-    (unit-type-count-total 1109 < 14)
+    (unit-type-count-total 1106 < 10)
 =>
-    (train 1109)
+    (train 1106)
 )
 (defrule
     (difficulty == hard)
-    (event-detected trigger 14)
-    (unit-type-count-total 1109 < 22)
+    (unit-type-count-total 1106 < 16)
 =>
-    (train 1109)
+    (train 1106)
 )
 
 ; Show and Tell
 (defrule
     (difficulty == easy)
-    (event-detected trigger 14)
-    (unit-type-count-total shotel-line < 7)
+    (unit-type-count-total shotel-line < 10)
 =>
     (train shotel-line)
 )
 (defrule
     (difficulty == moderate)
-    (event-detected trigger 14)
-    (unit-type-count-total shotel-line < 12)
+    (unit-type-count-total shotel-line < 20)
 =>
     (train shotel-line)
 )
 (defrule
     (difficulty == hard)
-    (event-detected trigger 14)
-    (unit-type-count-total shotel-line < 20)
+    (unit-type-count-total shotel-line < 30)
 =>
     (train shotel-line)
 )
@@ -345,68 +364,90 @@
 ; Camel Archers
 (defrule
     (difficulty == easy)
-    (event-detected trigger 14)
-    (unit-type-count-total camel-archer-line < 5)
+    (unit-type-count-total camel-archer-line < 10)
 =>
     (train camel-archer-line)
 )
 (defrule
     (difficulty == moderate)
-    (event-detected trigger 14)
-    (unit-type-count-total camel-archer-line < 11)
-=>
-    (train camel-archer-line)
-)
-(defrule
-    (difficulty == hard)
-    (event-detected trigger 14)
     (unit-type-count-total camel-archer-line < 16)
 =>
     (train camel-archer-line)
 )
+(defrule
+    (difficulty == hard)
+    (unit-type-count-total camel-archer-line < 24)
+=>
+    (train camel-archer-line)
+)
 
-; Onagers
+; Gbetos
 (defrule
     (difficulty == easy)
-    (event-detected trigger 14)
-    (unit-type-count-total mangonel-line < 2)
+    (unit-type-count-total gbeto-line < 10)
 =>
-    (train mangonel-line)
+    (train gbeto-line)
 )
 (defrule
     (difficulty == moderate)
-    (event-detected trigger 14)
-    (unit-type-count-total mangonel-line < 4)
+    (unit-type-count-total gbeto-line < 16)
 =>
-    (train mangonel-line)
+    (train gbeto-line)
 )
 (defrule
     (difficulty == hard)
-    (event-detected trigger 14)
-    (unit-type-count-total mangonel-line < 7)
+    (unit-type-count-total gbeto-line < 24)
 =>
-    (train mangonel-line)
+    (train gbeto-line)
+)
+
+; Trebbies
+(defrule
+    (difficulty == easy)
+    (unit-type-count-total trebuchet < 1)
+=>
+    (train trebuchet)
+)
+(defrule
+    (difficulty == moderate)
+    (unit-type-count-total trebuchet < 2)
+=>
+    (train trebuchet)
+)
+(defrule
+    (difficulty == hard)
+    (unit-type-count-total trebuchet > 4)
+=>
+    (train trebuchet)
 )
 
 ; Rams
 (defrule
     (difficulty == easy)
-    (event-detected trigger 14)
-    (unit-type-count-total battering-ram-line < 3)
+    (unit-type-count-total battering-ram-line < 1)
 =>
     (train battering-ram-line)
 )
 (defrule
     (difficulty == moderate)
-    (event-detected trigger 14)
-    (unit-type-count-total battering-ram-line < 5)
+    (unit-type-count-total battering-ram-line < 2)
 =>
     (train battering-ram-line)
 )
 (defrule
     (difficulty == hard)
-    (event-detected trigger 14)
-    (unit-type-count-total battering-ram-line < 8)
+    (unit-type-count-total battering-ram-line < 3)
 =>
     (train battering-ram-line)
+)
+
+; IMP
+(defrule
+	(current-age == castle-age)
+	(can-research imperial-age)
+	(game-time > 2000)
+=>
+	(release-escrow food)
+	(release-escrow gold)
+	(research imperial-age)
 )
