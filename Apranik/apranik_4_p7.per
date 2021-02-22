@@ -26,341 +26,44 @@
 
 (defrule
     (event-detected trigger 10)
-    (not (event-detected trigger 15))
 =>
 	(set-strategic-number sn-number-explore-groups 1)
  	(set-strategic-number sn-total-number-explorers 1)
 )
 
-; Explorers End
-(defrule
-    (event-detected trigger 15)
-=>
-	(set-strategic-number sn-number-explore-groups 0)
- 	(set-strategic-number sn-total-number-explorers 0)
-)
-
-; Upgrading
-
 (defrule
 	(true)
 =>
-	(set-escrow-percentage wood 70)
-	(set-escrow-percentage food 70)
-	(set-escrow-percentage gold 70)
-	(set-escrow-percentage stone 70)
     (enable-timer 7 3600)
-)
-
-; Trade Caravans
-(defrule
-    (unit-type-count trade-cart < 30)
-=>
-    (train trade-cart)
-)
-
-; Elite Mameluke
-(defrule
-	(game-time > 1200)
-	(can-research-with-escrow ri-elite-mameluke)
-=>
-	(release-escrow wood)
-	(release-escrow food)
-	(release-escrow gold)
-	(release-escrow stone)
-	(research ri-elite-mameluke)
-)
-
-; Heavy Camel Rider
-(defrule
-	(game-time > 1500)
-	(can-research-with-escrow ri-heavy-camel)
-=>
-	(release-escrow wood)
-	(release-escrow food)
-	(release-escrow gold)
-	(release-escrow stone)
-	(research ri-heavy-camel)
-)
-
-; Heavy Scorpion
-(defrule
-	(game-time > 2400)
-	(can-research-with-escrow ri-heavy-scorpion)
-=>
-	(release-escrow wood)
-	(release-escrow food)
-	(release-escrow gold)
-	(release-escrow stone)
-	(research ri-heavy-scorpion)
-)
-
-; Galleon
-(defrule
-    (game-time > 1600)
-    (unit-type-count-total war-galley > 4)
-    (can-research-with-escrow ri-galleon)
-=>
-    (release-escrow wood)
-    (release-escrow food)
-    (release-escrow gold)
-    (release-escrow stone)
-    (research ri-galleon)
-)
-
-; Siege Engineers
-(defrule
-    (game-time > 2000)
-    (can-research-with-escrow ri-siege-engineers)
-=>
-    (release-escrow wood)
-    (release-escrow food)
-    (release-escrow gold)
-    (release-escrow stone)
-    (research ri-siege-engineers)
-)
-
-; Capped Ram
-(defrule
-    (can-research-with-escrow ri-capped-ram)
-=>
-    (release-escrow wood)
-    (release-escrow food)
-    (release-escrow gold)
-    (release-escrow stone)
-    (research ri-capped-ram)
-)
-
-; Siege Ram
-(defrule
-    (game-time > 1200)
-    (can-research-with-escrow ri-siege-ram)
-=>
-    (release-escrow wood)
-    (release-escrow food)
-    (release-escrow gold)
-    (release-escrow stone)
-    (research ri-siege-ram)
-)
-
-; Chemistry
-(defrule
-    (game-time > 300)
-    (can-research-with-escrow ri-chemistry)
-=>
-    (release-escrow wood)
-    (release-escrow food)
-    (release-escrow gold)
-    (release-escrow stone)
-    (research ri-chemistry)
-)
-
-; Keep
-(defrule
-    (game-time > 300)
-    (can-research-with-escrow ri-keep)
-=>
-    (release-escrow wood)
-    (release-escrow food)
-    (release-escrow gold)
-    (release-escrow stone)
-    (research ri-keep)
-)
-
-; Arrowslits
-(defrule
-    (game-time > 1100)
-    (can-research-with-escrow ri-arrowslits)
-=>
-    (release-escrow wood)
-    (release-escrow food)
-    (release-escrow gold)
-    (release-escrow stone)
-    (research ri-arrowslits)
-)
-
-; Crop Rotation
-(defrule
-    (game-time > 200)
-    (can-research-with-escrow ri-crop-rotation)
-=>
-    (release-escrow wood)
-    (release-escrow food)
-    (release-escrow gold)
-    (release-escrow stone)
-    (research ri-crop-rotation)
-)
-
-; Zealotry
-(defrule
-    (game-time > 600)
-    (can-research-with-escrow my-unique-research)
-=>
-    (release-escrow wood)
-    (release-escrow food)
-    (release-escrow gold)
-    (release-escrow stone)
-    (research my-unique-research)
-)
-
-; Blast Furnace
-(defrule
-    (can-research-with-escrow ri-blast-furnace)
-=>
-    (release-escrow wood)
-    (release-escrow food)
-    (release-escrow gold)
-    (release-escrow stone)
-    (research ri-blast-furnace)
-)
-
-; Bracer
-(defrule
-    (can-research-with-escrow ri-bracer)
-=>
-    (release-escrow wood)
-    (release-escrow food)
-    (release-escrow gold)
-    (release-escrow stone)
-    (research ri-bracer)
-)
-
-; Plate Barding Armor
-(defrule
-    (can-research-with-escrow ri-plate-barding)
-=>
-    (release-escrow wood)
-    (release-escrow food)
-    (release-escrow gold)
-    (release-escrow stone)
-    (research ri-plate-barding)
-)
-
-; Plate Mail Armor
-(defrule
-    (can-research-with-escrow ri-plate-mail)
-=>
-    (release-escrow wood)
-    (release-escrow food)
-    (release-escrow gold)
-    (release-escrow stone)
-    (research ri-plate-mail)
-)
-
-; Ring Archer Armor
-(defrule
-    (can-research-with-escrow ri-ring-archer-armor)
-=>
-    (release-escrow wood)
-    (release-escrow food)
-    (release-escrow gold)
-    (release-escrow stone)
-    (research ri-ring-archer-armor)
-)
-
-; George Michael
-(defrule
-    (can-research-with-escrow ri-faith)
-=>
-    (release-escrow wood)
-    (release-escrow food)
-    (release-escrow gold)
-    (release-escrow stone)
-    (research ri-faith)
-)
-
-; Illuminati
-(defrule
-    (can-research-with-escrow ri-illumination)
-=>
-    (release-escrow wood)
-    (release-escrow food)
-    (release-escrow gold)
-    (release-escrow stone)
-    (research ri-illumination)
-)
-
-; Block Printing
-(defrule
-    (can-research-with-escrow ri-block-printing)
-=>
-    (release-escrow wood)
-    (release-escrow food)
-    (release-escrow gold)
-    (release-escrow stone)
-    (research ri-block-printing)
-)
-
-; Theocracy
-(defrule
-    (can-research-with-escrow ri-theocracy)
-=>
-    (release-escrow wood)
-    (release-escrow food)
-    (release-escrow gold)
-    (release-escrow stone)
-    (research ri-theocracy)
-)
-
-; Two Man Saw
-(defrule
-    (can-research-with-escrow ri-two-man-saw)
-=>
-    (release-escrow wood)
-    (release-escrow food)
-    (release-escrow gold)
-    (release-escrow stone)
-    (research ri-two-man-saw)
 )
 
 ; Army Size
 
 (defrule
 	(difficulty == easy)
-    (not (event-detected trigger 11))
+    (event-detected trigger 10)
 =>
 	(set-strategic-number sn-percent-attack-soldiers 35)
 )
 
 (defrule
 	(difficulty == moderate)
-    (not (event-detected trigger 11))
+    (event-detected trigger 10)
 =>
 	(set-strategic-number sn-percent-attack-soldiers 50)
 )
 
 (defrule
 	(difficulty == hard)
-    (not (event-detected trigger 11))
+    (event-detected trigger 10)
 =>
 	(set-strategic-number sn-percent-attack-soldiers 75)
-)
-
-; After the Wonder goes up
-(defrule
-	(difficulty == easy)
-    (event-detected trigger 11)
-=>
-	(set-strategic-number sn-percent-attack-soldiers 50)
-)
-
-(defrule
-	(difficulty == moderate)
-    (event-detected trigger 11)
-=>
-	(set-strategic-number sn-percent-attack-soldiers 70)
-)
-
-(defrule
-	(difficulty == hard)
-    (event-detected trigger 11)
-=>
-	(set-strategic-number sn-percent-attack-soldiers 95)
 )
 
 ; Number of Villagers
 
 (defrule
+    (event-detected trigger 10)
     (unit-type-count-total villager less-than 75)
 =>
     (train villager)
@@ -402,23 +105,12 @@
 (defrule
     (true)
 =>
-    (set-strategic-number sn-food-gatherer-percentage 80)
-    (set-strategic-number sn-wood-gatherer-percentage 15)
-    (set-strategic-number sn-gold-gatherer-percentage 5)
+    (set-strategic-number sn-food-gatherer-percentage 50)
+    (set-strategic-number sn-wood-gatherer-percentage 25)
+    (set-strategic-number sn-gold-gatherer-percentage 25)
     (set-strategic-number sn-maximum-food-drop-distance 6)
     (set-strategic-number sn-maximum-wood-drop-distance 12)
     (set-strategic-number sn-maximum-gold-drop-distance 8)
-    (disable-self)
-)
-
-; Upgrading
-
-(defrule
-    (true)
-=>
-    ;(set-goal military-techs 1)
-    ;(set-goal blacksmith-techs 1)
-    ;(set-goal dock-techs 1)
     (disable-self)
 )
 
@@ -426,7 +118,6 @@
 
 (defrule
 	(difficulty == easy)
-    (not (event-detected trigger 10))
 =>
 	(set-difficulty-parameter ability-to-maintain-distance 80)
 	(set-difficulty-parameter ability-to-dodge-missiles 80)
@@ -434,7 +125,6 @@
 )
 (defrule
 	(difficulty == moderate)
-    (not (event-detected trigger 10))
 =>
 	(set-difficulty-parameter ability-to-maintain-distance 60) 
 	(set-difficulty-parameter ability-to-dodge-missiles 60)
@@ -442,71 +132,37 @@
 )
 (defrule
 	(difficulty == hard)
-    (not (event-detected trigger 10))
 =>
 	(set-difficulty-parameter ability-to-maintain-distance 40) 
 	(set-difficulty-parameter ability-to-dodge-missiles 40)
 	(disable-self)
 )
 
-; After first group
-
-(defrule
-	(difficulty == easy)
-    (event-detected trigger 10)
-=>
-	(set-difficulty-parameter ability-to-maintain-distance 100)
-	(set-difficulty-parameter ability-to-dodge-missiles 100)
-	(disable-self)
-)
-(defrule
-	(difficulty == moderate)
-    (event-detected trigger 10)
-=>
-	(set-difficulty-parameter ability-to-maintain-distance 90) 
-	(set-difficulty-parameter ability-to-dodge-missiles 90)
-	(disable-self)
-)
-(defrule
-	(difficulty == hard)
-    (event-detected trigger 10)
-=>
-	(set-difficulty-parameter ability-to-maintain-distance 80) 
-	(set-difficulty-parameter ability-to-dodge-missiles 80)
-	(disable-self)
-)
-
 ; Attack Intervals
 
-; Initial Attack
+; Time to Prepare
+
 (defrule
     (difficulty == easy)
-    (game-time > 3500)
+    (event-detected trigger 10)
 =>
-	(set-strategic-number sn-group-form-distance 25)
-	(set-strategic-number sn-number-attack-groups 4)
-    (attack-now)
-    (enable-timer 1 1800)
+    (enable-timer 1 900)
     (disable-self)
 )
+
 (defrule
     (difficulty == moderate)
-    (game-time > 2800)
+    (event-detected trigger 10)
 =>
-	(set-strategic-number sn-group-form-distance 25)
-	(set-strategic-number sn-number-attack-groups 4)
-    (attack-now)
-    (enable-timer 1 1200)
+    (enable-timer 1 600)
     (disable-self)
 )
+
 (defrule
     (difficulty == hard)
-    (game-time > 2100)
+    (event-detected trigger 10)
 =>
-	(set-strategic-number sn-group-form-distance 25)
-	(set-strategic-number sn-number-attack-groups 4)
-    (attack-now)
-    (enable-timer 1 900)
+    (enable-timer 1 300)
     (disable-self)
 )
 
@@ -514,84 +170,50 @@
 (defrule
     (difficulty == easy)
     (timer-triggered 1)
-    (not (event-detected trigger 11))
-    (military-population >= 12)
 =>
     (attack-now)
-    (enable-timer 1 2000)
+    (enable-timer 1 1800)
     (disable-self)
 )
 (defrule
     (difficulty == moderate)
     (timer-triggered 1)
-    (not (event-detected trigger 11))
-    (military-population >= 24)
 =>
     (attack-now)
-    (enable-timer 1 1600)
+    (enable-timer 1 1000)
     (disable-self)
 )
 (defrule
     (difficulty == hard)
     (timer-triggered 1)
-    (not (event-detected trigger 11))
-    (military-population >= 32)
 =>
     (attack-now)
-    (enable-timer 1 1200)
+    (enable-timer 1 550)
     (disable-self)
 )
 
-; After the Wonder goes up
-(defrule
-    (difficulty == easy)
-    (timer-triggered 1)
-    (event-detected trigger 11)
-=>
-    (attack-now)
-    (enable-timer 1 1100)
-    (disable-self)
-)
-(defrule
-    (difficulty == moderate)
-    (timer-triggered 1)
-    (event-detected trigger 11)
-=>
-    (attack-now)
-    (enable-timer 1 850)
-    (disable-self)
-)
-(defrule
-    (difficulty == hard)
-    (timer-triggered 1)
-    (event-detected trigger 11)
-=>
-    (attack-now)
-    (enable-timer 1 600)
-    (disable-self)
-)
 
 ; Army Composition
 
 ; Mamelukes
 (defrule
     (difficulty == easy)
-    (not (event-detected trigger 12))
-    (unit-type-count-total mameluke-line < 10)
+    (event-detected trigger 10)
+    (unit-type-count-total mameluke-line < 8)
 =>
     (train mameluke-line)
 )
 (defrule
     (difficulty == moderate)
-    (not (event-detected trigger 12))
-    (unit-type-count-total mameluke-line < 15)
+    (event-detected trigger 10)
+    (unit-type-count-total mameluke-line < 16)
 =>
     (train mameluke-line)
 )
 (defrule
     (difficulty == hard)
-    (not (event-detected trigger 12))
-    (unit-type-count-total mameluke-line < 20)
+    (event-detected trigger 10)
+    (unit-type-count-total mameluke-line < 25)
 =>
     (train mameluke-line)
 )
@@ -599,22 +221,22 @@
 ; Imams
 (defrule
     (difficulty == easy)
-    (not (event-detected trigger 12))
-    (unit-type-count-total 842 < 4)
+    (event-detected trigger 10)
+    (unit-type-count-total 842 < 3)
 =>
     (train 842)
 )
 (defrule
     (difficulty == moderate)
-    (not (event-detected trigger 12))
-    (unit-type-count-total 842 < 8)
+    (event-detected trigger 10)
+    (unit-type-count-total 842 < 5)
 =>
     (train 842)
 )
 (defrule
     (difficulty == hard)
-    (not (event-detected trigger 12))
-    (unit-type-count-total 842 < 12)
+    (event-detected trigger 10)
+    (unit-type-count-total 842 < 8)
 =>
     (train 842)
 )
@@ -622,126 +244,119 @@
 ; Camel Riders
 (defrule
     (difficulty == easy)
-    (not (event-detected trigger 12))
-    (unit-type-count-total camel-line < 10)
+    (event-detected trigger 10)
+    (unit-type-count-total camel-line < 12)
 =>
     (train camel-line)
 )
 (defrule
     (difficulty == moderate)
-    (not (event-detected trigger 12))
-    (unit-type-count-total camel-line < 16)
+    (event-detected trigger 10)
+    (unit-type-count-total camel-line < 20)
 =>
     (train camel-line)
 )
 (defrule
     (difficulty == hard)
-    (not (event-detected trigger 12))
-    (unit-type-count-total camel-line < 25)
+    (event-detected trigger 10)
+    (unit-type-count-total camel-line < 32)
 =>
     (train camel-line)
 )
 
-; Scorpions
+; Onagers
 (defrule
     (difficulty == easy)
-    (not (event-detected trigger 12))
-    (unit-type-count-total scorpion-line < 4)
+    (event-detected trigger 10)
+    (unit-type-count-total mangonel-line < 3)
 =>
-    (train scorpion-line)
+    (train mangonel-line)
 )
 (defrule
     (difficulty == moderate)
-    (not (event-detected trigger 12))
-    (unit-type-count-total scorpion-line < 8)
+    (event-detected trigger 10)
+    (unit-type-count-total mangonel-line < 5)
 =>
-    (train scorpion-line)
+    (train mangonel-line)
 )
 (defrule
     (difficulty == hard)
-    (not (event-detected trigger 12))
-    (unit-type-count-total scorpion-line < 12)
+    (event-detected trigger 10)
+    (unit-type-count-total mangonel-line < 8)
 =>
-    (train scorpion-line)
+    (train mangonel-line)
 )
 
 ; Eastern Swordsmen
 (defrule
     (difficulty == easy)
-    (not (event-detected trigger 12))
-    (unit-type-count-total 894 < 20)
+    (event-detected trigger 10)
+    (unit-type-count-total 894 < 15)
 =>
     (train 894)
 )
 (defrule
     (difficulty == moderate)
-    (not (event-detected trigger 12))
-    (unit-type-count-total 894 < 30)
+    (event-detected trigger 10)
+    (unit-type-count-total 894 < 25)
 =>
     (train 894)
 )
 (defrule
     (difficulty == hard)
-    (not (event-detected trigger 12))
-    (unit-type-count-total 894 < 40)
+    (event-detected trigger 10)
+    (unit-type-count-total 894 < 36)
 =>
     (train 894)
 )
 
-; Rams
+; Heavy Cavalry Archers
 (defrule
     (difficulty == easy)
-    (not (event-detected trigger 12))
-    (unit-type-count-total battering-ram-line < 3)
+    (event-detected trigger 10)
+    (unit-type-count-total cavalry-archer-line < 12)
 =>
-    (train battering-ram-line)
+    (train cavalry-archer-line)
 )
 (defrule
     (difficulty == moderate)
-    (not (event-detected trigger 12))
-    (unit-type-count-total battering-ram-line < 5)
+    (event-detected trigger 10)
+    (unit-type-count-total cavalry-archer-line < 21)
 =>
-    (train battering-ram-line)
+    (train cavalry-archer-line)
 )
 (defrule
     (difficulty == hard)
-    (not (event-detected trigger 12))
-    (unit-type-count-total battering-ram-line < 7)
+    (event-detected trigger 10)
+    (unit-type-count-total cavalry-archer-line < 28)
 =>
-    (train battering-ram-line)
+    (train cavalry-archer-line)
 )
 
 ; Boats
 (defrule
     (difficulty == easy)
-    (event-detected trigger 17)
-    (unit-type-count-total galley-line < 7)
+    (event-detected trigger 10)
+    (unit-type-count-total galley-line < 15)
 =>
     (train galley-line)
 )
 (defrule
     (difficulty == moderate)
-    (event-detected trigger 17)
-    (unit-type-count-total galley-line < 10)
+    (event-detected trigger 10)
+    (unit-type-count-total galley-line < 25)
 =>
     (train galley-line)
 )
 (defrule
     (difficulty == hard)
-    (event-detected trigger 17)
-    (unit-type-count-total galley-line < 14)
+    (event-detected trigger 10)
+    (unit-type-count-total galley-line < 35)
 =>
     (train galley-line)
 )
 
 ; Trebbies
-(defrule
-    (difficulty == moderate)
-    (not (event-detected trigger 12))
-    (unit-type-count-total trebuchet < 1)
-=>
-    (train trebuchet)
-)
 (defrule
     (difficulty == moderate)
     (not (event-detected trigger 12))
@@ -750,174 +365,16 @@
     (train trebuchet)
 )
 (defrule
-    (difficulty == hard)
-    (not (event-detected trigger 12))
-    (unit-type-count-total trebuchet < 3)
-=>
-    (train trebuchet)
-)
-
-; --------------------
-; Later in the Mission
-; --------------------
-
-; Mamelukes
-(defrule
-    (difficulty == easy)
-    (event-detected trigger 12)
-    (unit-type-count-total mameluke-line < 15)
-=>
-    (train mameluke-line)
-)
-(defrule
-    (difficulty == moderate)
-    (event-detected trigger 12)
-    (unit-type-count-total mameluke-line < 25)
-=>
-    (train mameluke-line)
-)
-(defrule
-    (difficulty == hard)
-    (event-detected trigger 12)
-    (unit-type-count-total mameluke-line < 35)
-=>
-    (train mameluke-line)
-)
-
-; Imams
-(defrule
-    (difficulty == easy)
-    (event-detected trigger 12)
-    (unit-type-count-total 842 < 6)
-=>
-    (train 842)
-)
-(defrule
-    (difficulty == moderate)
-    (event-detected trigger 12)
-    (unit-type-count-total 842 < 10)
-=>
-    (train 842)
-)
-(defrule
-    (difficulty == hard)
-    (event-detected trigger 12)
-    (unit-type-count-total 842 < 16)
-=>
-    (train 842)
-)
-
-; Camel Riders
-(defrule
-    (difficulty == easy)
-    (event-detected trigger 12)
-    (unit-type-count-total camel-line < 16)
-=>
-    (train camel-line)
-)
-(defrule
     (difficulty == moderate)
     (not (event-detected trigger 12))
-    (unit-type-count-total camel-line < 32)
-=>
-    (train camel-line)
-)
-(defrule
-    (difficulty == hard)
-    (event-detected trigger 12)
-    (unit-type-count-total camel-line < 50)
-=>
-    (train camel-line)
-)
-
-; Scorpions
-(defrule
-    (difficulty == easy)
-    (event-detected trigger 12)
-    (unit-type-count-total scorpion-line < 7)
-=>
-    (train scorpion-line)
-)
-(defrule
-    (difficulty == moderate)
-    (event-detected trigger 12)
-    (unit-type-count-total scorpion-line < 12)
-=>
-    (train scorpion-line)
-)
-(defrule
-    (difficulty == hard)
-    (event-detected trigger 12)
-    (unit-type-count-total scorpion-line < 18)
-=>
-    (train scorpion-line)
-)
-
-; Eastern Swordsmen
-(defrule
-    (difficulty == easy)
-    (event-detected trigger 12)
-    (unit-type-count-total 894 < 30)
-=>
-    (train 894)
-)
-(defrule
-    (difficulty == moderate)
-    (event-detected trigger 12)
-    (unit-type-count-total 894 < 50)
-=>
-    (train 894)
-)
-(defrule
-    (difficulty == hard)
-    (event-detected trigger 12)
-    (unit-type-count-total 894 < 80)
-=>
-    (train 894)
-)
-
-; Rams
-(defrule
-    (difficulty == easy)
-    (event-detected trigger 12)
-    (unit-type-count-total battering-ram-line < 6)
-=>
-    (train battering-ram-line)
-)
-(defrule
-    (difficulty == moderate)
-    (event-detected trigger 12)
-    (unit-type-count-total battering-ram-line < 10)
-=>
-    (train battering-ram-line)
-)
-(defrule
-    (difficulty == hard)
-    (event-detected trigger 12)
-    (unit-type-count-total battering-ram-line < 18)
-=>
-    (train battering-ram-line)
-)
-
-; Trebbies
-(defrule
-    (difficulty == moderate)
-    (event-detected trigger 12)
-    (unit-type-count-total trebuchet < 3)
-=>
-    (train trebuchet)
-)
-(defrule
-    (difficulty == moderate)
-    (event-detected trigger 12)
-    (unit-type-count-total trebuchet < 5)
+    (unit-type-count-total trebuchet < 4)
 =>
     (train trebuchet)
 )
 (defrule
     (difficulty == hard)
-    (event-detected trigger 12)
-    (unit-type-count-total trebuchet < 10)
+    (not (event-detected trigger 12))
+    (unit-type-count-total trebuchet < 7)
 =>
     (train trebuchet)
 )
