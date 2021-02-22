@@ -1,0 +1,1108 @@
+; Alexandria
+
+(defrule	
+	(true)
+=>
+    (set-strategic-number sn-maximum-town-size 25)
+    (set-strategic-number sn-camp-max-distance 35)
+    (set-strategic-number sn-mill-max-distance 15)
+    (set-strategic-number sn-wall-targeting-mode 1)
+    (set-strategic-number sn-percent-civilian-builders 15)
+    (set-strategic-number sn-percent-civilian-gatherers 85)
+
+	(set-strategic-number sn-number-explore-groups 1)
+ 	(set-strategic-number sn-total-number-explorers 1)
+
+    (set-goal end-age end-imperial)
+
+	(set-strategic-number sn-defense-distance 20)
+	(set-strategic-number sn-percent-enemy-sighted-response 100)
+	(set-strategic-number sn-enemy-sighted-response-distance 5)
+	(set-strategic-number sn-sentry-distance 15)
+    (set-strategic-number sn-maximum-gold-drop-distance 4)
+	(set-strategic-number sn-wood-dropsite-distance 4)
+	(disable-self)
+)
+
+; Upgrading
+
+(defrule
+	(true)
+=>
+	(set-escrow-percentage wood 70)
+	(set-escrow-percentage food 70)
+	(set-escrow-percentage gold 70)
+	(set-escrow-percentage stone 70)
+    (enable-timer 7 3600)
+)
+
+; Trade Caravans
+(defrule
+    (unit-type-count trade-cart < 10)
+=>
+    (train trade-cart)
+)
+
+; Elite Mameluke
+(defrule
+	(game-time > 2400)
+	(can-research-with-escrow ri-elite-mameluke)
+=>
+	(release-escrow wood)
+	(release-escrow food)
+	(release-escrow gold)
+	(release-escrow stone)
+	(research ri-elite-mameluke)
+)
+
+; X-Bows
+(defrule
+	(game-time > 300)
+	(can-research-with-escrow ri-crossbowman)
+=>
+	(release-escrow wood)
+	(release-escrow food)
+	(release-escrow gold)
+	(release-escrow stone)
+	(research ri-crossbowman)
+)
+
+; Arby's
+(defrule
+	(game-time > 2000)
+	(can-research-with-escrow ri-arbalest)
+=>
+	(release-escrow wood)
+	(release-escrow food)
+	(release-escrow gold)
+	(release-escrow stone)
+	(research ri-arbalest)
+)
+
+; Pikeys
+(defrule
+	(game-time > 180)
+	(can-research-with-escrow ri-pikeman)
+=>
+	(release-escrow wood)
+	(release-escrow food)
+	(release-escrow gold)
+	(release-escrow stone)
+	(research ri-pikeman)
+)
+
+; Light Cavalry
+(defrule
+	(can-research-with-escrow ri-light-cavalry)
+=>
+	(release-escrow wood)
+	(release-escrow food)
+	(release-escrow gold)
+	(release-escrow stone)
+	(research ri-light-cavalry)
+)
+
+; Huzzah
+(defrule
+	(game-time > 1600)
+	(can-research-with-escrow ri-hussar)
+=>
+	(release-escrow wood)
+	(release-escrow food)
+	(release-escrow gold)
+	(release-escrow stone)
+	(research ri-hussar)
+)
+
+; War Galley
+(defrule
+    (game-time > 600)
+    (unit-type-count-total galley > 4)
+    (can-research-with-escrow ri-war-galley)
+=>
+    (release-escrow wood)
+    (release-escrow food)
+    (release-escrow gold)
+    (release-escrow stone)
+    (research ri-war-galley)
+)
+
+
+; Galleon
+(defrule
+    (game-time > 2700)
+    (unit-type-count-total war-galley > 4)
+    (can-research-with-escrow ri-galleon)
+=>
+    (release-escrow wood)
+    (release-escrow food)
+    (release-escrow gold)
+    (release-escrow stone)
+    (research ri-galleon)
+)
+
+; Siege Engineers
+(defrule
+    (game-time > 2000)
+    (can-research-with-escrow ri-siege-engineers)
+=>
+    (release-escrow wood)
+    (release-escrow food)
+    (release-escrow gold)
+    (release-escrow stone)
+    (research ri-siege-engineers)
+)
+
+; Capped Ram
+(defrule
+    (can-research-with-escrow ri-capped-ram)
+=>
+    (release-escrow wood)
+    (release-escrow food)
+    (release-escrow gold)
+    (release-escrow stone)
+    (research ri-capped-ram)
+)
+
+; Siege Ram
+(defrule
+    (game-time > 1200)
+    (can-research-with-escrow ri-siege-ram)
+=>
+    (release-escrow wood)
+    (release-escrow food)
+    (release-escrow gold)
+    (release-escrow stone)
+    (research ri-siege-ram)
+)
+
+; Thumb Ring
+(defrule
+    (game-time > 300)
+    (can-research-with-escrow ri-thumb-ring)
+=>
+    (release-escrow wood)
+    (release-escrow food)
+    (release-escrow gold)
+    (release-escrow stone)
+    (research ri-thumb-ring)
+)
+
+; Squires
+(defrule
+    (can-research-with-escrow ri-squires)
+=>
+    (release-escrow wood)
+    (release-escrow food)
+    (release-escrow gold)
+    (release-escrow stone)
+    (research ri-squires)
+)
+
+; Arson
+(defrule
+    (game-time > 800)
+    (can-research-with-escrow ri-arson)
+=>
+    (release-escrow wood)
+    (release-escrow food)
+    (release-escrow gold)
+    (release-escrow stone)
+    (research ri-arson)
+)
+
+; Husbandry
+(defrule
+    (game-time > 500)
+    (can-research-with-escrow ri-husbandry)
+=>
+    (release-escrow wood)
+    (release-escrow food)
+    (release-escrow gold)
+    (release-escrow stone)
+    (research ri-husbandry)
+)
+
+; Leather Archer Armor
+(defrule
+    (game-time > 700)
+    (can-research-with-escrow ri-leather-archer-armor)
+=>
+    (release-escrow wood)
+    (release-escrow food)
+    (release-escrow gold)
+    (release-escrow stone)
+    (research ri-leather-archer-armor)
+)
+
+; Chain Mail Armor
+(defrule
+    (game-time > 550)
+    (can-research-with-escrow ri-chain-mail)
+=>
+    (release-escrow wood)
+    (release-escrow food)
+    (release-escrow gold)
+    (release-escrow stone)
+    (research ri-chain-mail)
+)
+
+; Chain Barding Armor
+(defrule
+    (game-time > 750)
+    (can-research-with-escrow ri-chain-barding)
+=>
+    (release-escrow wood)
+    (release-escrow food)
+    (release-escrow gold)
+    (release-escrow stone)
+    (research ri-chain-barding)
+)
+
+; Careening
+(defrule
+    (game-time > 1000)
+    (can-research-with-escrow ri-careening)
+=>
+    (release-escrow wood)
+    (release-escrow food)
+    (release-escrow gold)
+    (release-escrow stone)
+    (research ri-careening)
+)
+
+; Masonry
+(defrule
+    (game-time > 1500)
+    (can-research-with-escrow ri-masonry)
+=>
+    (release-escrow wood)
+    (release-escrow food)
+    (release-escrow gold)
+    (release-escrow stone)
+    (research ri-masonry)
+)
+
+; Guard Tower
+(defrule
+    (can-research-with-escrow ri-guard-tower)
+=>
+    (release-escrow wood)
+    (release-escrow food)
+    (release-escrow gold)
+    (release-escrow stone)
+    (research ri-guard-tower)
+)
+
+; Iron Casting
+(defrule
+    (game-time > 900)
+    (can-research-with-escrow ri-iron-casting)
+=>
+    (release-escrow wood)
+    (release-escrow food)
+    (release-escrow gold)
+    (release-escrow stone)
+    (research ri-iron-casting)
+)
+
+; Bodkin Arrow
+(defrule
+    (game-time > 250)
+    (can-research-with-escrow ri-bodkin-arrow)
+=>
+    (release-escrow wood)
+    (release-escrow food)
+    (release-escrow gold)
+    (release-escrow stone)
+    (research ri-bodkin-arrow)
+)
+
+; Ballistics
+(defrule
+    (game-time > 480)
+    (can-research-with-escrow ri-ballistics)
+=>
+    (release-escrow wood)
+    (release-escrow food)
+    (release-escrow gold)
+    (release-escrow stone)
+    (research ri-ballistics)
+)
+
+; Murder Holes
+(defrule
+    (can-research-with-escrow ri-murder-holes)
+=>
+    (release-escrow wood)
+    (release-escrow food)
+    (release-escrow gold)
+    (release-escrow stone)
+    (research ri-murder-holes)
+)
+
+; Keep
+(defrule
+    (can-research-with-escrow ri-keep)
+=>
+    (release-escrow wood)
+    (release-escrow food)
+    (release-escrow gold)
+    (release-escrow stone)
+    (research ri-keep)
+)
+
+; Redemption
+(defrule
+    (game-time > 1100)
+    (can-research-with-escrow ri-redemption)
+=>
+    (release-escrow wood)
+    (release-escrow food)
+    (release-escrow gold)
+    (release-escrow stone)
+    (research ri-redeption)
+)
+
+; Sanctity
+(defrule
+    (game-time > 1300)
+    (can-research-with-escrow ri-sanctity)
+=>
+    (release-escrow wood)
+    (release-escrow food)
+    (release-escrow gold)
+    (release-escrow stone)
+    (research ri-sanctity)
+)
+
+; Fervor
+(defrule
+    (game-time > 840)
+    (can-research-with-escrow ri-fervor)
+=>
+    (release-escrow wood)
+    (release-escrow food)
+    (release-escrow gold)
+    (release-escrow stone)
+    (research ri-fervor)
+)
+
+; Hand Cart
+(defrule
+    (game-time > 1150)
+    (can-research-with-escrow ri-hand-cart)
+=>
+    (release-escrow wood)
+    (release-escrow food)
+    (release-escrow gold)
+    (release-escrow stone)
+    (research ri-hand-cart)
+)
+
+; Every Woman Every Man Join the Caravan of Love
+(defrule
+    (game-time > 1600)
+    (can-research-with-escrow ri-caravan)
+=>
+    (release-escrow wood)
+    (release-escrow food)
+    (release-escrow gold)
+    (release-escrow stone)
+    (research ri-caravan)
+)
+
+; Heavy Plow
+(defrule
+    (can-research-with-escrow ri-heavy-plow)
+=>
+    (release-escrow wood)
+    (release-escrow food)
+    (release-escrow gold)
+    (release-escrow stone)
+    (research ri-heavy-plow)
+)
+
+
+; Chemistry
+(defrule
+    (game-time > 300)
+    (can-research-with-escrow ri-chemistry)
+=>
+    (release-escrow wood)
+    (release-escrow food)
+    (release-escrow gold)
+    (release-escrow stone)
+    (research ri-chemistry)
+)
+
+; Keep
+(defrule
+    (game-time > 300)
+    (can-research-with-escrow ri-keep)
+=>
+    (release-escrow wood)
+    (release-escrow food)
+    (release-escrow gold)
+    (release-escrow stone)
+    (research ri-keep)
+)
+
+; Arrowslits
+(defrule
+    (game-time > 1100)
+    (can-research-with-escrow ri-arrowslits)
+=>
+    (release-escrow wood)
+    (release-escrow food)
+    (release-escrow gold)
+    (release-escrow stone)
+    (research ri-arrowslits)
+)
+
+; Crop Rotation
+(defrule
+    (game-time > 200)
+    (can-research-with-escrow ri-crop-rotation)
+=>
+    (release-escrow wood)
+    (release-escrow food)
+    (release-escrow gold)
+    (release-escrow stone)
+    (research ri-crop-rotation)
+)
+
+; Zealotry
+(defrule
+    (game-time > 600)
+    (can-research-with-escrow my-unique-research)
+=>
+    (release-escrow wood)
+    (release-escrow food)
+    (release-escrow gold)
+    (release-escrow stone)
+    (research my-unique-research)
+)
+
+; Blast Furnace
+(defrule
+    (can-research-with-escrow ri-blast-furnace)
+=>
+    (release-escrow wood)
+    (release-escrow food)
+    (release-escrow gold)
+    (release-escrow stone)
+    (research ri-blast-furnace)
+)
+
+; Bracer
+(defrule
+    (can-research-with-escrow ri-bracer)
+=>
+    (release-escrow wood)
+    (release-escrow food)
+    (release-escrow gold)
+    (release-escrow stone)
+    (research ri-bracer)
+)
+
+; Plate Barding Armor
+(defrule
+    (can-research-with-escrow ri-plate-barding)
+=>
+    (release-escrow wood)
+    (release-escrow food)
+    (release-escrow gold)
+    (release-escrow stone)
+    (research ri-plate-barding)
+)
+
+; Plate Mail Armor
+(defrule
+    (can-research-with-escrow ri-plate-mail)
+=>
+    (release-escrow wood)
+    (release-escrow food)
+    (release-escrow gold)
+    (release-escrow stone)
+    (research ri-plate-mail)
+)
+
+; Ring Archer Armor
+(defrule
+    (can-research-with-escrow ri-ring-archer-armor)
+=>
+    (release-escrow wood)
+    (release-escrow food)
+    (release-escrow gold)
+    (release-escrow stone)
+    (research ri-ring-archer-armor)
+)
+
+; George Michael
+(defrule
+    (can-research-with-escrow ri-faith)
+=>
+    (release-escrow wood)
+    (release-escrow food)
+    (release-escrow gold)
+    (release-escrow stone)
+    (research ri-faith)
+)
+
+; Illuminati
+(defrule
+    (can-research-with-escrow ri-illumination)
+=>
+    (release-escrow wood)
+    (release-escrow food)
+    (release-escrow gold)
+    (release-escrow stone)
+    (research ri-illumination)
+)
+
+; Block Printing
+(defrule
+    (can-research-with-escrow ri-block-printing)
+=>
+    (release-escrow wood)
+    (release-escrow food)
+    (release-escrow gold)
+    (release-escrow stone)
+    (research ri-block-printing)
+)
+
+; Theocracy
+(defrule
+    (can-research-with-escrow ri-theocracy)
+=>
+    (release-escrow wood)
+    (release-escrow food)
+    (release-escrow gold)
+    (release-escrow stone)
+    (research ri-theocracy)
+)
+
+; Two Man Saw
+(defrule
+    (can-research-with-escrow ri-two-man-saw)
+=>
+    (release-escrow wood)
+    (release-escrow food)
+    (release-escrow gold)
+    (release-escrow stone)
+    (research ri-two-man-saw)
+)
+
+; Army Size
+
+(defrule
+	(difficulty == easy)
+    (not (event-detected trigger 11))
+=>
+	(set-strategic-number sn-percent-attack-soldiers 30)
+)
+
+(defrule
+	(difficulty == moderate)
+    (not (event-detected trigger 11))
+=>
+	(set-strategic-number sn-percent-attack-soldiers 40)
+)
+
+(defrule
+	(difficulty == hard)
+    (not (event-detected trigger 11))
+=>
+	(set-strategic-number sn-percent-attack-soldiers 50)
+)
+
+; Later On
+(defrule
+	(difficulty == easy)
+    (event-detected trigger 11)
+=>
+	(set-strategic-number sn-percent-attack-soldiers 40)
+)
+
+(defrule
+	(difficulty == moderate)
+    (event-detected trigger 11)
+=>
+	(set-strategic-number sn-percent-attack-soldiers 55)
+)
+
+(defrule
+	(difficulty == hard)
+    (event-detected trigger 11)
+=>
+	(set-strategic-number sn-percent-attack-soldiers 80)
+)
+
+; Number of Villagers
+
+(defrule
+    (unit-type-count-total villager less-than 40)
+=>
+    (train villager)
+)
+
+; Farm Maintenance
+
+(defrule
+    (building-type-count-total farm less-than 25)
+    (can-build farm)
+=>
+    (build farm)
+)
+
+; Wood
+
+(defrule
+    (resource-found wood)
+    (dropsite-min-distance wood > 5)
+    (building-type-count-total lumber-camp < 3)
+    (can-build lumber-camp)
+=>
+    (build lumber-camp)
+)
+
+; Gold
+
+(defrule
+    (resource-found gold)
+    (dropsite-min-distance gold > 6)
+    (building-type-count-total mining-camp < 2)
+    (can-build mining-camp)
+=>
+    (build mining-camp)
+)
+
+; Villager Designation
+
+(defrule
+    (true)
+=>
+    (set-strategic-number sn-food-gatherer-percentage 50)
+    (set-strategic-number sn-wood-gatherer-percentage 25)
+    (set-strategic-number sn-gold-gatherer-percentage 15)
+    (set-strategic-number sn-stone-gatherer-percentage 10)
+    (set-strategic-number sn-maximum-food-drop-distance 6)
+    (set-strategic-number sn-maximum-wood-drop-distance 12)
+    (set-strategic-number sn-maximum-gold-drop-distance 8)
+    (set-strategic-number sn-maximum-stone-drop-distance 8)
+    (disable-self)
+)
+
+; Dodge
+
+(defrule
+	(difficulty == easy)
+=>
+	(set-difficulty-parameter ability-to-maintain-distance 100)
+	(set-difficulty-parameter ability-to-dodge-missiles 100)
+	(disable-self)
+)
+(defrule
+	(difficulty == moderate)
+=>
+	(set-difficulty-parameter ability-to-maintain-distance 90) 
+	(set-difficulty-parameter ability-to-dodge-missiles 90)
+	(disable-self)
+)
+(defrule
+	(difficulty == hard)
+=>
+	(set-difficulty-parameter ability-to-maintain-distance 80) 
+	(set-difficulty-parameter ability-to-dodge-missiles 80)
+	(disable-self)
+)
+
+; Attack Intervals
+
+; Initial Attack
+(defrule
+    (difficulty == easy)
+    (game-time > 2100)
+=>
+	(set-strategic-number sn-group-form-distance 25)
+	(set-strategic-number sn-number-attack-groups 1)
+    (attack-now)
+    (enable-timer 1 1200)
+    (disable-self)
+)
+(defrule
+    (difficulty == moderate)
+    (game-time > 1600)
+=>
+	(set-strategic-number sn-group-form-distance 25)
+	(set-strategic-number sn-number-attack-groups 1)
+    (attack-now)
+    (enable-timer 1 950)
+    (disable-self)
+)
+(defrule
+    (difficulty == hard)
+    (game-time > 1100)
+=>
+	(set-strategic-number sn-group-form-distance 25)
+	(set-strategic-number sn-number-attack-groups 4)
+    (attack-now)
+    (enable-timer 1 750)
+    (disable-self)
+)
+
+; Subsequent Attacks
+(defrule
+    (difficulty == easy)
+    (timer-triggered 1)
+    (military-population >= 8)
+=>
+    (attack-now)
+    (enable-timer 1 1200)
+    (disable-self)
+)
+(defrule
+    (difficulty == moderate)
+    (timer-triggered 1)
+    (military-population >= 12)
+=>
+    (attack-now)
+    (enable-timer 1 950)
+    (disable-self)
+)
+(defrule
+    (difficulty == hard)
+    (timer-triggered 1)
+    (military-population >= 20)
+=>
+    (attack-now)
+    (enable-timer 1 750)
+    (disable-self)
+)
+
+; Army Composition
+
+; Mamelukes
+(defrule
+    (difficulty == easy)
+    (not (event-detected trigger 12))
+    (unit-type-count-total mameluke-line < 3)
+=>
+    (train mameluke-line)
+)
+(defrule
+    (difficulty == moderate)
+    (not (event-detected trigger 12))
+    (unit-type-count-total mameluke-line < 7)
+=>
+    (train mameluke-line)
+)
+(defrule
+    (difficulty == hard)
+    (not (event-detected trigger 12))
+    (unit-type-count-total mameluke-line < 12)
+=>
+    (train mameluke-line)
+)
+
+; Imams
+(defrule
+    (difficulty == easy)
+    (not (event-detected trigger 12))
+    (unit-type-count-total 842 < 1)
+=>
+    (train 842)
+)
+(defrule
+    (difficulty == moderate)
+    (not (event-detected trigger 12))
+    (unit-type-count-total 842 < 2)
+=>
+    (train 842)
+)
+(defrule
+    (difficulty == hard)
+    (not (event-detected trigger 12))
+    (unit-type-count-total 842 < 3)
+=>
+    (train 842)
+)
+
+; Light Cavalry
+(defrule
+    (difficulty == easy)
+    (not (event-detected trigger 12))
+    (unit-type-count-total scout-cavalry-line < 4)
+=>
+    (train scout-cavalry-line)
+)
+(defrule
+    (difficulty == moderate)
+    (not (event-detected trigger 12))
+    (unit-type-count-total scout-cavalry-line < 7)
+=>
+    (train scout-cavalry-line)
+)
+(defrule
+    (difficulty == hard)
+    (not (event-detected trigger 12))
+    (unit-type-count-total scout-cavalry-line < 12)
+=>
+    (train scout-cavalry-line)
+)
+
+; Pikeys
+(defrule
+    (difficulty == easy)
+    (not (event-detected trigger 12))
+    (unit-type-count-total spearman-line < 5)
+=>
+    (train spearman-line)
+)
+(defrule
+    (difficulty == moderate)
+    (not (event-detected trigger 12))
+    (unit-type-count-total spearman-line < 10)
+=>
+    (train spearman-line)
+)
+(defrule
+    (difficulty == hard)
+    (not (event-detected trigger 12))
+    (unit-type-count-total spearman-line < 15)
+=>
+    (train spearman-line)
+)
+
+; Archers
+(defrule
+    (difficulty == easy)
+    (not (event-detected trigger 12))
+    (unit-type-count-total archer-line < 8)
+=>
+    (train archer-line)
+)
+(defrule
+    (difficulty == moderate)
+    (not (event-detected trigger 12))
+    (unit-type-count-total archer-line < 14)
+=>
+    (train archer-line)
+)
+(defrule
+    (difficulty == hard)
+    (not (event-detected trigger 12))
+    (unit-type-count-total archer-line < 18)
+=>
+    (train archer-line)
+)
+
+; Rams
+(defrule
+    (difficulty == easy)
+    (not (event-detected trigger 12))
+    (unit-type-count-total battering-ram-line < 1)
+=>
+    (train battering-ram-line)
+)
+(defrule
+    (difficulty == moderate)
+    (not (event-detected trigger 12))
+    (unit-type-count-total battering-ram-line < 2)
+=>
+    (train battering-ram-line)
+)
+(defrule
+    (difficulty == hard)
+    (not (event-detected trigger 12))
+    (unit-type-count-total battering-ram-line < 3)
+=>
+    (train battering-ram-line)
+)
+
+; Boats
+(defrule
+    (difficulty == easy)
+    (unit-type-count-total galley-line < 2)
+=>
+    (train galley-line)
+)
+(defrule
+    (difficulty == moderate)
+    (unit-type-count-total galley-line < 7)
+=>
+    (train galley-line)
+)
+(defrule
+    (difficulty == hard)
+    (unit-type-count-total galley-line < 12)
+=>
+    (train galley-line)
+)
+
+; --------------------
+; Later in the Mission
+; --------------------
+
+; Mamelukes
+(defrule
+    (difficulty == easy)
+    (event-detected trigger 12)
+    (unit-type-count-total mameluke-line < 5)
+=>
+    (train mameluke-line)
+)
+(defrule
+    (difficulty == moderate)
+    (event-detected trigger 12)
+    (unit-type-count-total mameluke-line < 9)
+=>
+    (train mameluke-line)
+)
+(defrule
+    (difficulty == hard)
+    (event-detected trigger 12)
+    (unit-type-count-total mameluke-line < 15)
+=>
+    (train mameluke-line)
+)
+
+; Imams
+(defrule
+    (difficulty == easy)
+    (event-detected trigger 12)
+    (unit-type-count-total 842 < 2)
+=>
+    (train 842)
+)
+(defrule
+    (difficulty == moderate)
+    (event-detected trigger 12)
+    (unit-type-count-total 842 < 4)
+=>
+    (train 842)
+)
+(defrule
+    (difficulty == hard)
+    (event-detected trigger 12)
+    (unit-type-count-total 842 < 8)
+=>
+    (train 842)
+)
+
+; Light Cavalry
+(defrule
+    (difficulty == easy)
+    (event-detected trigger 12)
+    (unit-type-count-total scout-cavalry-line < 8)
+=>
+    (train scout-cavalry-line)
+)
+(defrule
+    (difficulty == moderate)
+    (event-detected trigger 12)
+    (unit-type-count-total scout-cavalry-line < 15)
+=>
+    (train scout-cavalry-line)
+)
+(defrule
+    (difficulty == hard)
+    (event-detected trigger 12)
+    (unit-type-count-total scout-cavalry-line < 22)
+=>
+    (train scout-cavalry-line)
+)
+
+; Pikeys
+(defrule
+    (difficulty == easy)
+    (event-detected trigger 12)
+    (unit-type-count-total spearman-line < 10)
+=>
+    (train spearman-line)
+)
+(defrule
+    (difficulty == moderate)
+    (event-detected trigger 12)
+    (unit-type-count-total spearman-line < 17)
+=>
+    (train spearman-line)
+)
+(defrule
+    (difficulty == hard)
+    (event-detected trigger 12)
+    (unit-type-count-total spearman-line < 25)
+=>
+    (train spearman-line)
+)
+
+; Archers
+(defrule
+    (difficulty == easy)
+    (event-detected trigger 12)
+    (unit-type-count-total archer-line < 12)
+=>
+    (train archer-line)
+)
+(defrule
+    (difficulty == moderate)
+    (event-detected trigger 12)
+    (unit-type-count-total archer-line < 20)
+=>
+    (train archer-line)
+)
+(defrule
+    (difficulty == hard)
+    (event-detected trigger 12)
+    (unit-type-count-total archer-line < 30)
+=>
+    (train archer-line)
+)
+
+; Rams
+(defrule
+    (difficulty == easy)
+    (event-detected trigger 12)
+    (unit-type-count-total battering-ram-line < 2)
+=>
+    (train battering-ram-line)
+)
+(defrule
+    (difficulty == moderate)
+    (event-detected trigger 12)
+    (unit-type-count-total battering-ram-line < 4)
+=>
+    (train battering-ram-line)
+)
+(defrule
+    (difficulty == hard)
+    (event-detected trigger 12)
+    (unit-type-count-total battering-ram-line < 7)
+=>
+    (train battering-ram-line)
+)
+
+; IMP
+
+(defconst end-imperial 3)
+(defconst end-age 12)
+
+(defrule
+	(current-age == castle-age)
+	(can-research imperial-age)
+	(game-time > 2200)
+=>
+	(release-escrow food)
+	(release-escrow gold)
+	(research imperial-age)
+)
+
+; MORE TOWERS
+
+(defrule
+	(building-type-count-total watch-tower-line < 12)
+	(can-build watch-tower-line)
+=>
+	(build watch-tower-line)
+)
