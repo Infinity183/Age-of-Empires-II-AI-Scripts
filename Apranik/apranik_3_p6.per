@@ -292,6 +292,7 @@
 (defrule
     (difficulty == easy)
     (timer-triggered 5)
+    (not (event-detected trigger 30))
 =>
     (cc-add-resource food 300)
     (cc-add-resource wood 300)
@@ -303,6 +304,7 @@
 (defrule
     (difficulty == moderate)
     (timer-triggered 5)
+    (not (event-detected trigger 30))
 =>
     (cc-add-resource food 400)
     (cc-add-resource wood 400)
@@ -314,6 +316,7 @@
 (defrule
     (difficulty == hard)
     (timer-triggered 5)
+    (not (event-detected trigger 30))
 =>
     (cc-add-resource food 500)
     (cc-add-resource wood 500)
